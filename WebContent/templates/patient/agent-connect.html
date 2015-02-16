@@ -1,0 +1,28 @@
+<div class="animate-if" ng-if="agent.visible">
+	<div class="container-fluid">
+		<div class="row">
+			<rtcomm-chat></rtcomm-chat>
+		</div>
+		
+		<div class="panel panel-primary row"  ng-controller="RtcommVideoController" ng-hide="!avConnected">
+			<div class="panel-heading">
+				<span class="glyphicon glyphicon-facetime-video"></span> Video
+			</div>
+			<div class="video-panel">
+				<rtcomm-video></rtcomm-video>
+			</div>
+		</div>	
+		
+		<div class="row">
+			<div class="btn-group-sm pull-left" style='padding: 10px'>
+			 	<div ng-controller="RtcommEndpointController">
+					<button id="btnDisconnectEndpoint" class='btn  btn-primary' ng-click="disconnect()" ng-disabled="(sessionState == 'session:stopped' || sessionState == 'session:failed')">
+						<span aria-hidden="true" aria-label="Disconnect"></span>
+						Disconnect
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>	
+	

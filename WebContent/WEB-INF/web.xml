@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+	<display-name>sample.rtcomm.healthcare</display-name>
+	<security-constraint>
+		<display-name>agents</display-name>
+		<web-resource-collection>
+			<web-resource-name>Agents</web-resource-name>
+			<url-pattern>/agent/*</url-pattern>
+			<!-- http-method>GET</http-method>
+			<http-method>PUT</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>POST</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>OPTIONS</http-method -->
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>agent</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>patients</display-name>
+		<web-resource-collection>
+			<web-resource-name>Patients</web-resource-name>
+			<url-pattern>/patient/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>patient</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>Doctors</display-name>
+		<web-resource-collection>
+			<web-resource-name>Doctors</web-resource-name>
+			<url-pattern>/doctor/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>doctor</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<welcome-file-list>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>Healthcare</realm-name>
+		<form-login-config>
+			<form-login-page>/login.html</form-login-page>
+			<form-error-page>/error.html</form-error-page>
+		</form-login-config>
+	</login-config>
+</web-app>

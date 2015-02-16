@@ -1,0 +1,59 @@
+<server description="new server">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>jsp-2.2</feature>
+        <feature>rtcomm-1.0</feature>
+        <feature>websocket-1.1</feature>
+        <feature>appSecurity-2.0</feature>
+        <feature>localConnector-1.0</feature>
+    	<feature>servlet-3.1</feature>
+	</featureManager>
+
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+    <rtcommOptions enableLocalMqtt="true" eventRegistrationEnabled="false" eventSessionEnabled="false" primaryMessageServerHost='localhost' rtcommTopicPath="/rtcomm/" secondaryMessageServerHost='localhost' sharedSubscriptionPath="" sharedSubscriptionsEnabled="true">
+    	<callQueue description="Healthcasre Doctors" signalingTopicName="DoctorsQueueSignaling" topicName="Doctors" callQueueID="Healthcare Doctors"/>
+      <thirdPartyCallControl/>
+      <callQueue callQueueID="Healthcare Agents" signalingTopicName="AgentsQueueSignaling" topicName="AgentsQueue" description="Agents Queue "></callQueue>
+    </rtcommOptions>
+    <logging traceSpecification="*=info:com.ibm.ws.rtcomm.*=all"/>
+    <basicRegistry realm="HealthRealm">
+    	<group name="Doctors">
+    		<member name="doctor1@ibmhealth.com"></member>
+    		<member name="doctor2@ibmhealth.com"></member>
+    	</group>
+    	<group name="Patients">
+    		<member name="patient1@somecompany.com"/>
+    		<member name="patient2@somecompany.com"/>
+    	</group>
+    	<group name="Agents">
+    		<member name="agent1@ibmhealth.com"/>
+    		<member name="agent2@ibmhealth.com"/>
+    	</group>
+    	<user name="patient1@somecompany.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="patient2@somecompany.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="agent1@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="agent2@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user password="{xor}Lz4sLCgwLTs=" name="doctor1@ibmhealth.com"></user>
+    	<user password="{xor}Lz4sLCgwLTs=" name="doctor2@ibmhealth.com"></user>
+    </basicRegistry>
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+    <webApplication id="sample.rtcomm.healthcare"
+    	location="sample.rtcomm.healthcare.war"
+    	name="sample.rtcomm.healthcare">
+    	<application-bnd>
+    		<security-role name="agent">
+    			<group name="Agents"></group>
+    		</security-role>
+    		<security-role name="patient">
+    			<group name="Patients"></group>
+    		</security-role>
+    		<security-role name="doctor">
+    			<group name="Doctors"></group>
+    		</security-role>
+    	</application-bnd>
+    </webApplication>
+</server>

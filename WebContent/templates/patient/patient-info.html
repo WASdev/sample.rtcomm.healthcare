@@ -1,0 +1,15 @@
+<div class="container-fluid">
+<h3>My  details:</h3>
+
+<table class="table table-bordered">
+		<tr ng-repeat="attribute in attributes">
+		<td class="col-md-6">{{attribute.key}}</td>
+		<td class="col-md-6">{{attribute.value}}</td> 
+	</tr>
+
+ 	<tr ng-repeat="link in links">
+		<td class="col-md-6">{{link.key}}</td>
+		<td class="col-md-6"><a  href="{{link.value}}">{{link.value}}</a></td> 
+	</tr>
+</table>
+</div>

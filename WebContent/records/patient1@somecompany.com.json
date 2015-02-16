@@ -1,0 +1,34 @@
+{
+	"attributes" : [
+		{
+			"key": "Patient name",
+			"value" : "John Smith"
+		},
+		{
+			"key": "Patient ID",
+			"value" : "patient1@somecompany.com"
+		},
+		{
+			"key": "email",
+			"value" : "patient1@somecompany.com"
+		},
+		{
+			"key": "Last visit",
+			"value" : "12/15/2014"
+		}
+	],
+	"links" : [
+		{
+			"key": "Medications",
+			"value" : "http://www.healthcare.com/medications/patient1"
+		},
+		{
+			"key": "Family history",
+			"value" : "http://www.healthcare.com/history/patient1"
+		},
+		{
+			"key": "Medical records",
+			"value" : "http://www.healthcare.com/records/patient1"
+		}
+	]
+}
