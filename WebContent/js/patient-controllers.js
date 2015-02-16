@@ -1,19 +1,17 @@
 patientModule.controller("CallAgentCtrl", function($scope, $log, PatientService, HealthcareService, RtcommService) {
+
 	$scope.agent = PatientService.agentCall;
 	$scope.queue = null;
-	
+	$scope.visible=PatientService.agentCallVisible;
+	$scope.enableCall = false;
+
 	$scope.init = function(queue){
 		$scope.queue = queue || $scope.queue;
 		$log.info('Queue to call: '+queue);
 	};
-	
-	$scope.visible=PatientService.agentCallVisible;
-	
-	$scope.enableCall = false;
-	
-   $scope.$on('rtcomm::init', function (event, success, details) {
+
+  $scope.$on('rtcomm::init', function (event, success, details) {
 		$log.debug('RtcommCallModalController: rtcomm::init: success = ' + success);
-        
 		if (success == true)
            $scope.enableCallModel = true;
 		else
@@ -28,7 +26,6 @@ patientModule.controller("CallAgentCtrl", function($scope, $log, PatientService,
       $scope.enableCallModel = true;
       PatientService.setVisible(false);
   });
-  
   $scope.placeCall = function (queue){
 	  var callee = queue || $scope.queue;
 	  if (callee) {
@@ -47,7 +44,7 @@ patientModule.controller("CallAgentCtrl", function($scope, $log, PatientService,
 patientModule.controller('CallModalCtrl', function($scope, $log, $modal, RtcommService ) {
 	var videoModal = null;
 
-	$scope.open = function() {
+  $scope.open = function() {
 		videoModal = $modal.open({
 			templateUrl: '../templates/patient/videoModal.html',
 			controller: 'CallModalInstanceCtrl',
@@ -81,12 +78,9 @@ patientModule.controller('CallModalInstanceCtrl', function($scope, $modalInstanc
 	};
 	
 	$scope.close = function() {
-		$log.info('UUID --> '+uuid);
-		
 		var endpoint = RtcommService.getEndpoint(RtcommService.getActiveEndpoint());
 		if (typeof endpoint !== "undefined" && endpoint != null)
 			endpoint.disconnect();
-		
 		$modalInstance.dismiss('cancel');
 	};
 });

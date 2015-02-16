@@ -26,6 +26,8 @@
     	<group name="Patients">
     		<member name="patient1@somecompany.com"/>
     		<member name="patient2@somecompany.com"/>
+    		<member name="agent1@ibmhealth.com"/>
+    		<member name="agent2@ibmhealth.com"/>
     	</group>
     	<group name="Agents">
     		<member name="agent1@ibmhealth.com"/>
