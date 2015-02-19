@@ -1,0 +1,25 @@
+ <div class="modal-header">
+    <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" ng-model="modalHeader">{{modalHeader}}</h4>
+</div>
+<div class="modal-body">
+	<div class="video-panel">
+		<div ng-controller="RtcommVideoController" ng-init="init('expandedSelfView', 'expandedRemoteView')">
+			<div id="videoContainer">
+				<div id='selfViewContainer'>
+					<video title="expandedSelfView" id="expandedSelfView" class="selfView" autoplay="true" muted="true"></video>
+				</div>
+				<video title="expandedRemoteView" id="expandedRemoteView" class="remoteView" autoplay="true"></video>
+				<!--  video title="remoteView" id="remoteView" class="remoteView" autoplay="true" poster="../views/rtcomm/images/video_camera_big.png"></video -->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="col-md-1">
+	    	<button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
+
+

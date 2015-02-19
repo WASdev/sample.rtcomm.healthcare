@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>WebSphere Liberty Sample: Healthcare with Rtcomm</title>
+
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">WASdev Samples</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Liberty Rtcomm Healthcare</h1>
+        <p>This is a real-time communications help desk sample application. It provides both a customer and an agent perspective. To try this out you will need someone to play the role of both the customer and the agent. 
+           You can try this solo by opening two different browsers windows. You can also test this with multiple customers and agents. Enjoy!</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Patient</h2>
+          <p>Click here to enter this sample application as a Patient.  Use one of these possible user ids:</p>
+          	<ul>
+          		<li>patient1@somecompany.com</li>
+          		<li>patient2@somecompany.com</li>
+          	</ul>
+          <p>The password for both accounts is <b>password</b></p>
+          <p><a id="btnPatient" class="btn btn-default" href="#" role="button">Enter &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>WebSite Agent</h2>
+          <p>Click here to enter this sample application as an agent. As an agent, you will need to enter a name to register and then join the available queues.
+          Use one of these possible user ids:</p>
+          	<ul>
+          		<li>agent1@ibmhealth.com</li>
+          		<li>agent2@ibmhealth.com</li>
+          	</ul>
+          <p>The password for both accounts is <b>password</b></p>
+          <p><a id="btnAgent" class="btn btn-default" href="#" role="button">Enter &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Doctor</h2>
+          <p>Click here to enter this sample application as a Doctor. As a Doctor, you will need to enter a name to register and then join the available queues. Use one of these possible user ids:</p>
+          	<ul>
+          		<li>doctor1@ibmhealth.com</li>
+          		<li>doctor2@ibmhealth.com</li>
+          	</ul>
+          <p>The password for both accounts is <b>password</b></p>
+          <p><a id="btnDoctor" class="btn btn-default" href="#" role="button">Enter &raquo;</a></p>
+       </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy;IBM 2014</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script>
+  
+   	$('#btnPatient').on('click', function() {
+ 		window.location.href = "patient/patientHome.html";
+			
+	});
+
+	$('#btnAgent').on('click', function() {
+		window.location.href = "agent/agentHome.html";
+	});
+		
+	$('#btnDoctor').on('click', function() {
+		window.location.href = "doctor/doctorHome.html";
+	});
+    </script>
+    
+  </body>
+
+</html>

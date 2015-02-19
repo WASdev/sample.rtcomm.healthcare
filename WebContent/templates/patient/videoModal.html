@@ -1,0 +1,29 @@
+ <div class="modal-header">
+    <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" ng-model="modalHeader">{{modalHeader}}</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-md-5 nopaddng-right vertical-stretch">
+			<rtcomm-chat></rtcomm-chat>
+		</div>
+		<div class="col-md-7 nopadding-left">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<span class="glyphicon glyphicon-facetime-video"></span> Video
+				</div>
+				<div class="video-panel">
+					<rtcomm-video></rtcomm-video>
+				</div>
+			</div>				
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="col-md-1">
+	    	<button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </div>
+	<div class="col-md-11">
+		<rtcomm-endpoint-status></rtcomm-endpoint-status>
+    </div>
+</div>

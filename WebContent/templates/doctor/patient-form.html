@@ -1,0 +1,29 @@
+<div class="container-fluid">
+
+<h3>Patient details:</h3>
+
+<table class="table table-bordered">
+	<tr>
+		<td class="col-md-6">Record number:</td>
+		<td class="col-md-6">{{sessionID}}</td> 
+	</tr>
+  
+ 	<tr ng-repeat="attribute in attributes">
+		<td class="col-md-6">{{attribute.key}}</td>
+		<td class="col-md-6">{{attribute.value}}</td> 
+	</tr>
+
+ 	<tr ng-repeat="link in links">
+		<td class="col-md-6">{{link.key}}</td>
+		<td class="col-md-6"><a  href="{{link.value}}">{{link.value}}</a></td> 
+	</tr>
+</table>
+
+<form>
+  <div class="form-group">
+	<textarea class="form-control" rows="6" placeholder="Enter visit notes here..."></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+ </form>
+ <br>
+</div>
