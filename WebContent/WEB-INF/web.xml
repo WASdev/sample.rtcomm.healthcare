@@ -6,6 +6,7 @@
 		<web-resource-collection>
 			<web-resource-name>Agents</web-resource-name>
 			<url-pattern>/agent/*</url-pattern>
+			<url-pattern>/patient/*</url-pattern>
 			<!-- http-method>GET</http-method>
 			<http-method>PUT</http-method>
 			<http-method>HEAD</http-method>

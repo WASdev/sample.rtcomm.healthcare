@@ -2,6 +2,7 @@ patientModule.controller("CallAgentCtrl", function($scope, $log, PatientService,
 
 	$scope.agent = PatientService.agentCall;
 	$scope.queue = null;
+	$scope.activeEndpointID = RtcommService.getActiveEndpoint();
 	$scope.visible=PatientService.agentCallVisible;
 	$scope.enableCall = false;
 
@@ -9,6 +10,10 @@ patientModule.controller("CallAgentCtrl", function($scope, $log, PatientService,
 		$scope.queue = queue || $scope.queue;
 		$log.info('Queue to call: '+queue);
 	};
+	
+  $scope.$on('endpointActivated', function (event, endpointUUID) {
+    	$scope.activeEndpointID = endpointUUID;
+    });
 
   $scope.$on('rtcomm::init', function (event, success, details) {
 		$log.debug('RtcommCallModalController: rtcomm::init: success = ' + success);
@@ -34,10 +39,20 @@ patientModule.controller("CallAgentCtrl", function($scope, $log, PatientService,
 	  	$log.info('Changing VISIBLE! '+ $scope.agent.visible);
 	  	console.log('PatientService', PatientService);
 	  	$log.info('Changing VISIBLE! ps? '+PatientService.agentCall.visible);
-	  	RtcommService.placeCall(callee,['chat']);
+	  	$scope.activeEndpointID = RtcommService.placeCall(callee,['chat']);
 	  } else {
 	  	$log.error('No callee specified...');
 	  }
+	};
+	
+	$scope.disconnectCall = function (){
+		var endpoint = RtcommService.getEndpoint($scope.activeEndpointID);
+		
+		if (endpoint)
+			endpoint.disconnect();
+		
+	  	PatientService.setVisible(false);
+	  	$scope.activeEndpointID = null;
 	};
 });
 

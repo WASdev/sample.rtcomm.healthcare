@@ -1,5 +1,5 @@
-/*! lib.rtcomm.clientjs 1.0.0-beta.10 12-02-2015 */
-console.log('lib.rtcomm.clientjs 1.0.0-beta.10 12-02-2015');
+/*! lib.rtcomm.clientjs 1.0.0-beta.10 18-02-2015 */
+console.log('lib.rtcomm.clientjs 1.0.0-beta.10 18-02-2015');
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
@@ -693,11 +693,13 @@ var EndpointConnection = function EndpointConnection(config) {
       };
 
     var add = function(item) {
+
       /*global l:false*/
-
       l('TRACE') && console.log('Registry.add() Adding item to registry: ', item);
-
       item.on('finished', function() {
+        this.remove(item);
+      }.bind(this));
+      item.on('canceled', function() {
         this.remove(item);
       }.bind(this));
       timer && item.on('timeout_changed', function(newtimeout) {
@@ -2072,7 +2074,8 @@ var SigSession = function SigSession(config) {
       'ice_candidate':[],
       'have_pranswer':[],
       'pranswer':[],
-      'finished':[]
+      'finished':[],
+      'canceled':[]
   };
   // Initial State
   this.state = 'stopped';
@@ -2288,6 +2291,7 @@ SigSession.prototype = util.RtcommBaseObject.extend((function() {
       var message = this.createMessage('STOP_SESSION');
       l('DEBUG') && console.log(this+'.stop() stopping...', message);
       this.endpointconnector.send({message:message, toTopic: this.toTopic});
+      this._startTransaction && this._startTransaction.cancel();
       // Let's concerned persons know we are stopped
       this.state = 'stopped';
       this.emit('stopped');
@@ -2388,6 +2392,7 @@ SigSession.prototype = util.RtcommBaseObject.extend((function() {
         break;
       case 'STOP_SESSION':
         this.state='stopped';
+        this._startTransaction && this._startTransaction.cancel();
         this.emit('stopped', message.payload);
         this.emit('finished');
         break;
@@ -2449,6 +2454,7 @@ var Transaction = function Transaction(options, cbSuccess, cbFailure) {
   this.objName = "Transaction";
   this.events = {'message': [],
       'timeout_changed':[],
+      'canceled':[],
       'finished':[]};
   this.timeout = timeout || this.defaultTimeout;
   this.outbound = (message && message.transID) ? false : true;
@@ -2552,6 +2558,9 @@ Transaction.prototype = util.RtcommBaseObject.extend(
     } else {
       console.error('Message not for this transaction: ', rtcommMessage);
     }
+  },
+  cancel: function() {
+    this.emit('canceled');
   }
 });
 
@@ -5535,7 +5544,7 @@ return  {
   disconnect: function() {
     this.webrtc && this.webrtc.disable();
     this.chat && this.chat.disable();
-    if (this.sessionStarted()) {
+    if (!this.sessionStopped()) {
       this._.activeSession.stop();
       this._.activeSession = null;
       this.setState('session:stopped');
@@ -5592,9 +5601,12 @@ return  {
     }
   },
 
+  getRtcommConnectorService: function(){
+    return this.dependencies.endpointConnection.services.RTCOMM_CONNECTOR_SERVICE;
+  },
   /* used by the parent to assign the endpoint connection */
   setEndpointConnection: function(connection) {
-    this.webrtc && this.webrtc.setIceServers(connection.RTCOMM_CONNECTOR_SERVICE);
+    this.webrtc && this.webrtc.setIceServers(connection.services.RTCOMM_CONNECTOR_SERVICE);
     this.dependencies.endpointConnection = connection;
   },
 
@@ -5805,6 +5817,8 @@ var WebRTCConnection = (function invocation() {
       l('DEBUG') && console.log(self+'.enable()  --- entry ---');
 
       var RTCConfiguration = (config && config.RTCConfiguration) ?  config.RTCConfiguration : this.config.RTCConfiguration;
+
+      // Load Ice Servers...
       RTCConfiguration.iceServers = RTCConfiguration.iceServers || this.getIceServers();
       var RTCConstraints= (config && config.RTCConstraints) ? config.RTCConstraints : this.config.RTCConstraints;
       this.config.RTCOfferConstraints= (config && config.RTCOfferConstraints) ? config.RTCOfferConstraints: this.config.RTCOfferConstraints;
@@ -6384,8 +6398,10 @@ var WebRTCConnection = (function invocation() {
       l('DEBUG') && console.log(self+'.enableLocalAV() - nothing to do; both audio & video are false');
     }
   },
-
  setIceServers: function(service) {
+
+   l('DEBUG') && console.log(this+'.setIceServers() called w/ service:', service);
+
    function buildTURNobject(url) {
      // We expect this to be in form 
      // turn:<userid>@servername:port:credential:<password>
@@ -6407,6 +6423,7 @@ var WebRTCConnection = (function invocation() {
        l('DEBUG') && console.log('Unable to parse the url into a Turn Server');
        iceServer = null;
      }
+     l('DEBUG') && console.log(this+'.setIceServers() built iceServer object: ', iceServer);
      return iceServer;
    }
 

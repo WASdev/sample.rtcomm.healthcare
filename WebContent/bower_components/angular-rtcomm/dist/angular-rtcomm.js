@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * Angular module for Rtcomm
- * @version v0.0.1 - 2015-02-16
+ * @version v0.0.2 - 2015-02-17
  * @link https://github.com/WASdev/lib.angular-rtcomm
  * @author Brian Pulito <brian_pulito@us.ibm.com> (https://github.com/bpulito)
  */
@@ -126,8 +126,9 @@ rtcommModule.factory('RtcommService', ["$rootScope", "RtcommConfig", "$log", "$h
 	  var _remoteView = "remoteView";	//	Default remote view
 
 	  
-	  /*
+	  
 	  myEndpointProvider.setLogLevel('DEBUG');
+	  /*
 	  myEndpointProvider.setLogLevel('MESSAGE');
 	  */
 
@@ -749,6 +750,7 @@ rtcommModule.factory('RtcommService', ["$rootScope", "RtcommConfig", "$log", "$h
             _setActiveEndpoint(endpoint.id);
 
             endpoint.connect(calleeID);
+            return(endpoint.id);
         },
         
         getSessions : function(){
@@ -833,7 +835,6 @@ rtcommModule.directive('rtcommSessionmgr', ['RtcommService', '$log', function(Rt
 	  	};
 
 	  	$scope.$on('endpointActivated', function (event, endpointUUID) {
-        	//	Not to do something here to show that this button is live.
             $log.debug('rtcommSessionmgr: endpointActivated =' + endpointUUID);
         	$scope.sessMgrActiveEndpointUUID = endpointUUID;
         });
@@ -1276,7 +1277,7 @@ rtcommModule.directive("rtcommChat", ['RtcommService', '$log', '$location', '$an
 		  $scope.chats = RtcommService.getChats($scope.chatActiveEndpointUUID);
 
 		  // This forces the scroll bar to the bottom and watches the $location.hash
-	      $anchorScroll();
+	      //$anchorScroll();
 		  
 		  $scope.$on('endpointActivated', function (event, endpointUUID) {
 			  $log.debug('rtcommChat: endpointActivated =' + endpointUUID);
@@ -1305,10 +1306,10 @@ rtcommModule.directive("rtcommChat", ['RtcommService', '$log', '$location', '$an
 
 	  		  $scope.message = '';
 	  		  RtcommService.sendChatMessage(chat, $scope.chatActiveEndpointUUID);
-	  		  if (typeof $scope.chats != "undefined" && $scope.chats != null){
-	  			  $location.hash($scope.chats.length -1);
-	  		      $anchorScroll();
-	  		  }
+//	  		  if (typeof $scope.chats != "undefined" && $scope.chats != null){
+//	  			  $location.hash($scope.chats.length -1);
+//	  		      $anchorScroll();
+//	  		  }
 	  		};
 
       }],
@@ -1404,7 +1405,7 @@ rtcommModule.directive("rtcommIframe", ['RtcommService', '$log', '$sce', '$locat
  */
 rtcommModule.controller('RtcommAlertModalController', ['$scope', 'RtcommService', '$modal', '$log', function ($scope,  RtcommService, $modal, $log) {
 
-    $scope.alertingEndpointObject = null;
+    $scope.alertingEndpointUUID = null;
     $scope.autoAnswerNewMedia = false;
     $scope.alertActiveEndpointUUID = RtcommService.getActiveEndpoint();
     $scope.caller = null;
@@ -1425,7 +1426,7 @@ rtcommModule.controller('RtcommAlertModalController', ['$scope', 'RtcommService'
 		{
 			$log.debug('rtcommAlert: display alterting model: alertActiveEndpointUUID = ' + eventObject.endpoint + ' autoAnswerNewMedia = ' + $scope.autoAnswerNewMedia);
             $scope.caller = eventObject.endpoint.getRemoteEndpointID();
-            $scope.alertingEndpointObject = eventObject.endpoint;
+            $scope.alertingEndpointUUID = eventObject.endpoint.id;
             $scope.showAlerting();
 		}
 		else{
@@ -1448,14 +1449,21 @@ rtcommModule.controller('RtcommAlertModalController', ['$scope', 'RtcommService'
 
 	    modalInstance.result.then(
   		    	function() {
-   		            $log.debug('Accepting call from: ' + $scope.caller + ' for endpoint: ' + $scope.alertingEndpointObject.id);
-   		            $scope.alertingEndpointObject.accept();
-	            	$scope.alertingEndpointObject = null;
+  		    		var alertingEndpointObject = RtcommService.getEndpoint($scope.alertingEndpointUUID);
+  		    		
+  		    		if(alertingEndpointObject){
+  	   		            $log.debug('Accepting call from: ' + $scope.caller + ' for endpoint: ' + $scope.alertingEndpointUUID);
+  	   		            alertingEndpointObject.accept();
+  		            	alertingEndpointObject = null;
+  		    		}
  	    	     }, 
 		     	function () {
-		            $log.debug('Rejecting call from: ' + $scope.caller + ' for endpoint: ' + $scope.alertingEndpointObject.id);
-		            $scope.alertingEndpointObject.reject();
-		            $scope.alertingEndpointObject = null;
+   		    		var alertingEndpointObject = RtcommService.getEndpoint($scope.alertingEndpointUUID);
+  		    		if(alertingEndpointObject){
+			            $log.debug('Rejecting call from: ' + $scope.caller + ' for endpoint: ' + $scope.alertingEndpointUUID);
+			            alertingEndpointObject.reject();
+			            alertingEndpointObject = null;
+  		    		}
  	    });
     };
 }]);
