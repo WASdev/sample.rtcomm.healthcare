@@ -10,6 +10,7 @@ This sample demonstrates using the lib.rtcomm.clientjs and lib.angular-rtcomm pr
 1.  A Liberty Profile server that runs with the  `rtcomm-1.0` feature enabled. 
 2.  Chrome or Firefox web browsers that support WebRTC.
 3.  Eclipse with the latest beta of the WDT Tools installed.
+4.  bower package manager
 
 ##Installation
 
@@ -20,21 +21,31 @@ git clone https://github.com/WASdev/sample.rtcomm.healthcare.git
 ```
 Presumably this ends up in some directory: $HOME/sample.rtcomm.healthcare
 
-2. Import the project into Eclipse 
+2.  Install package dependecies:
+
+``` 
+cd $HOME/sample.rtcomm.healthcare/WebContent
+bower install
+```
+
+3. Import the project into Eclipse 
 
 Presuming Liberty is already installed into the directory '$WLP'
 
-3.  Create a new liberty server
+4.  Create a new liberty server
 ```
 $WLP/bin/server create ibmhealth
 ```
 
-4.  In Eclipse, deploy the application to the Liberty server.
+5.  In Eclipse, deploy the application to the Liberty server.
 
-5.  Copy the server.xml from the cloned project into the server directory.
+6.  Copy the server.xml from the cloned project into the server directory.
 ```
 cp $HOME/sample.rtcomm.healthcare/serverxml/server.xml $WLP/usr/servers/ibmhealth
 ```
+7. Ensure configuration paths match and are unique:
+
+TODO:  Fill this in...
 
 6.  Start Liberty.
 
