@@ -4,24 +4,28 @@
     <featureManager>
         <feature>jsp-2.2</feature>
         <feature>rtcomm-1.0</feature>
-        <feature>websocket-1.1</feature>
+        <feature>ssl-1.0 </feature>
         <feature>appSecurity-2.0</feature>
-        <feature>localConnector-1.0</feature>
-    	<feature>servlet-3.1</feature>
-	</featureManager>
-
+	     <feature>localConnector-1.0</feature>
+    </featureManager>
     <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
     <httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
-    <rtcommOptions enableLocalMqtt="true" eventRegistrationEnabled="false" eventSessionEnabled="false" primaryMessageServerHost='localhost' rtcommTopicPath="/rtcomm/" secondaryMessageServerHost='localhost' sharedSubscriptionPath="" sharedSubscriptionsEnabled="true">
-    	<callQueue description="Healthcasre Doctors" signalingTopicName="DoctorsQueueSignaling" topicName="Doctors" callQueueID="Healthcare Doctors"/>
-      <thirdPartyCallControl/>
+
+    <rtcomm messageServerHost='messagesight.demos.ibm.com' rtcommTopicPath="/rtcommHealthCare/" sharedSubscriptionPath="$SharedSubscriptions/rtcommHealthCare" sharedSubscriptionsEnabled="true">
+      <iceServerURL>stun:stun.l.google.com:19302</iceServerURL>
+      <iceServerURL>stun:stun1.l.google.com:19302</iceServerURL>
+      <iceServerURL>stun:stun2.l.google.com:19302</iceServerURL>
+
+   	  <callQueue description="Healthcasre Doctors" signalingTopicName="DoctorsQueueSignaling" topicName="Doctors" callQueueID="Healthcare Doctors"/>
       <callQueue callQueueID="Healthcare Agents" signalingTopicName="AgentsQueueSignaling" topicName="AgentsQueue" description="Agents Queue "></callQueue>
-    </rtcommOptions>
+    </rtcomm>
+
     <logging traceSpecification="*=info:com.ibm.ws.rtcomm.*=all"/>
+
     <basicRegistry realm="HealthRealm">
     	<group name="Doctors">
-    		<member name="doctor1@ibmhealth.com"></member>
-    		<member name="doctor2@ibmhealth.com"></member>
+    		<member name="doctor1@ibmhealth.com"/>
+    		<member name="doctor2@ibmhealth.com"/>
     	</group>
     	<group name="Patients">
     		<member name="patient1@somecompany.com"/>
@@ -37,8 +41,8 @@
     	<user name="patient2@somecompany.com" password="{xor}Lz4sLCgwLTs="/>
     	<user name="agent1@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
     	<user name="agent2@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
-    	<user password="{xor}Lz4sLCgwLTs=" name="doctor1@ibmhealth.com"></user>
-    	<user password="{xor}Lz4sLCgwLTs=" name="doctor2@ibmhealth.com"></user>
+    	<user name="doctor1@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="doctor2@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
     </basicRegistry>
 
     <applicationMonitor updateTrigger="mbean"/>
@@ -58,4 +62,4 @@
     		</security-role>
     	</application-bnd>
     </webApplication>
-</server>
+  </server>
