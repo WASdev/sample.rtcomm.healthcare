@@ -11,7 +11,19 @@
     <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
     <httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
 
-    <rtcomm messageServerHost='messagesight.demos.ibm.com' rtcommTopicPath="/rtcommHealthCare/" sharedSubscriptionPath="$SharedSubscriptions/rtcommHealthCare" sharedSubscriptionsEnabled="true">
+    <!--  *************** WARNING ***************
+          You MUST CHANGE the following references in the rtcomm tag:
+          messageServerHost="MQTTSERVERHOSTNAME" 
+             Change 'MQTTSERVERHOSTNAME' to a valid MQTT Server. For development purposes, you can try a public server at: messagesight.demos.ibm.com 
+
+          rtcommTopicPath="RTCOMMTOPICPATH" 
+             Change this to a path like "/rtcommSomeUniqueName/" NOTE:  When using a public/shared MQTT Server, it is MANDATORY that this be Unique.  
+             Try something like "/rtcommHealthcareSomeUniqueID/"
+
+          >>>>>>> These should match what is in the WebContent/rtcommConfig.json file. <<<<<<<<<<<
+    -->
+
+    <rtcomm messageServerHost="MQTTSERVERHOSTNAME" rtcommTopicPath="RTCOMMTOPICPATH" sharedSubscriptionPath="$SharedSubscriptions/rtcommHealthCare" sharedSubscriptionsEnabled="true">
       <iceServerURL>stun:stun.l.google.com:19302</iceServerURL>
       <iceServerURL>stun:stun1.l.google.com:19302</iceServerURL>
       <iceServerURL>stun:stun2.l.google.com:19302</iceServerURL>
