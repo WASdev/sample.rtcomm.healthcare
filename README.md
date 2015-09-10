@@ -34,12 +34,12 @@ cp $HOME/sample.rtcomm.healthcare/serverxml/server.xml $WLP/usr/servers/ibmhealt
 ```
 7. Configure the MQTT Server and Topic Path:
   1.  Edit the `$WLP/usr/servers/ibmhealth/server.xml` file
-    1.  Change the "<MQTTSERVERHOSTNAME>" to a valid MQTT Server (A public one for development purposes is located at: messagesight.demos.ibm.com)
-    2.  Change the "<RTCOMMTOPICPATH>" to define the topic path for your system (Anything you want, but if you are using a **SHARED** MQTT Server then you need to make sure it is **UNIQUE**).
+    1.  Change the "\<MQTTSERVERHOSTNAME\>" to a valid MQTT Server (A public one for development purposes is located at: messagesight.demos.ibm.com)
+    2.  Change the "\<RTCOMMTOPICPATH\>" to define the topic path for your system (Anything you want, but if you are using a **SHARED** MQTT Server then you need to make sure it is **UNIQUE**).
       Try something like "/rtcommHealthcare<somerandomnumber>/"
   2.  Edit the  `$HOME/sample.rtcomm.healthcare/WebContent/rtcommConfig.json` file
-    1.  Change the "<MQTTSERVERHOSTNAME>" to match the value chosen above
-    2.  Change the "<RTCOMMTOPICPATH>" to match the value chosen above
+    1.  Change the "\<MQTTSERVERHOSTNAME\>" to match the value chosen above
+    2.  Change the "\<RTCOMMTOPICPATH\>" to match the value chosen above
 8.  In Eclipse, deploy the application to the Liberty server.
 9.  Start Liberty.
 10.  Access 'http://localhost:9080/sample.rtcomm.healthcare/' in order to play with the sample.
