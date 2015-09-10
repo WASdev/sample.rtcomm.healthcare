@@ -14,24 +14,24 @@ This sample demonstrates using the WASdev/lib.rtcomm.clientjs and WASdev/lib.ang
 
 ##Installation
 
-1.  Clone the repository into a directory (i.e. $HOME/sample.rtcomm.healthcare)
-```
-git clone https://github.com/WASdev/sample.rtcomm.healthcare.git
-```
-2.  Install package dependecies:
-``` 
-cd $HOME/sample.rtcomm.healthcare/WebContent
-bower install
-```
+1. Clone the repository into a directory (i.e. $HOME/sample.rtcomm.healthcare)
+  ```
+  git clone https://github.com/WASdev/sample.rtcomm.healthcare.git
+  ```
+2. Install package dependecies:
+  ``` 
+  cd $HOME/sample.rtcomm.healthcare/WebContent
+  bower install
+  ```
 3. Import the project into Eclipse 
 4. Create a new liberty server(Presuming Liberty is already installed into the directory '$WLP')
-```
-$WLP/bin/server create ibmhealth
-```
+  ```
+  $WLP/bin/server create ibmhealth
+  ```
 6.  Copy the serverxml/server.xml from the cloned project into the Liberty ibmhealth server directory.
-```
-cp $HOME/sample.rtcomm.healthcare/serverxml/server.xml $WLP/usr/servers/ibmhealth
-```
+  ```
+  cp $HOME/sample.rtcomm.healthcare/serverxml/server.xml $WLP/usr/servers/ibmhealth
+  ```
 7. Configure the MQTT Server and Topic Path:
   1.  Edit the `$WLP/usr/servers/ibmhealth/server.xml` file
     1.  Change the "\<MQTTSERVERHOSTNAME\>" to a valid MQTT Server (A public one for development purposes is located at: messagesight.demos.ibm.com)
