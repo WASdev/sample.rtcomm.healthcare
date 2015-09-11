@@ -1,3 +1,4 @@
+// ******** DELETE THESE LINES *************
 //  WARNING:  You MUST Change the 'MQTTSERVERHOSTNAME' and 'RTCOMMTOPICPATH' below. 
 //
 // server --> MQTT Server.  There is a public one at messagesight.demos.ibm.com. 
@@ -8,7 +9,6 @@
 //                     "/rtcommHealthcare-<somerandomnumber>/"
 // 
 // This MUST match what is in the Liberty server.xml file (An example is in serverxml/server.xml)
-
 {
   "server" : "<MQTTSERVERHOSTNAME>",
 	"port" : 1883,
