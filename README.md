@@ -5,6 +5,8 @@ This sample demonstrates using the WASdev/lib.rtcomm.clientjs and WASdev/lib.ang
 2.  Healthcare Agent -- A support agent providing assistance with using the website via chat and video.
 3.  Healthcare Doctor -- A Doctor who is available to provide immediate assistance through chat andvideo.
 
+A live demo of this app is located here:  http://rtcomm-healthcare.wasdev.developer.ibm.com/sample.rtcomm.healthcare/
+
 ##Requirements
 
 1.  A Liberty Profile server that runs with the `rtcomm-1.0` feature enabled. 
@@ -41,9 +43,10 @@ This sample demonstrates using the WASdev/lib.rtcomm.clientjs and WASdev/lib.ang
     1.  Change the "\<MQTTSERVERHOSTNAME\>" to a valid MQTT Server (A public one for development purposes is located at: messagesight.demos.ibm.com)
     2.  Change the "\<RTCOMMTOPICPATH\>" to define the topic path for your system (Anything you want, but if you are using a **SHARED** MQTT Server then you need to make sure it is **UNIQUE**).
       Try something like "/rtcommHealthcare<somerandomnumber>/"
-  2.  Edit the  `$HOME/sample.rtcomm.healthcare/WebContent/rtcommConfig.json` file
-    1.  Change the "\<MQTTSERVERHOSTNAME\>" to match the value chosen above
-    2.  Change the "\<RTCOMMTOPICPATH\>" to match the value chosen above
+  2.  Copy the  `$HOME/sample.rtcomm.healthcare/WebContent/rtcommConfig.json.template` file and edit it:
+    1.  `cp $HOME/sample.rtcomm.healthcare/WebContent/rtcommConfig.json.template $HOME/sample.rtcomm.healthcare/WebContent/rtcommConfig.json`
+    2.  In the rtcommConfig.json file, change the "\<MQTTSERVERHOSTNAME\>" to match the value chosen above
+    3.  IN the rtcommConfig.json file, change the "\<RTCOMMTOPICPATH\>" to match the value chosen above
 8.  In Eclipse, deploy the application to the Liberty server.
 9.  Start Liberty.
 10.  Access 'http://localhost:9080/sample.rtcomm.healthcare/' in order to play with the sample.
