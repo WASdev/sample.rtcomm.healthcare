@@ -1,4 +1,4 @@
-<server description="new server">
+<server description="ibmhealth server">
 
     <!-- Enable features -->
     <featureManager>
@@ -16,17 +16,13 @@
    <!-- Change this to a path like "/rtcommSomeUniqueName/" NOTE:  When using a public/shared MQTT Server, it is MANDATORY that this be Unique.  -->
    <!--          Try something like "/rtcommHealthcareSomeUniqueID/"   -->
    <!--       >>>>>>> These should match what is in the WebContent/rtcommConfig.json file. <<<<<<<<<<< -->
-    <rtcomm 
-      messageServerHost="MQTTSERVERHOSTNAME" 
-      rtcommTopicPath="RTCOMMTOPICPATH" 
-      sharedSubscriptionPath="$SharedSubscriptions/rtcommTopicPath" 
-      sharedSubscriptionsEnabled="true">
+    <rtcomm messageServerHost="MQTTSERVERHOSTNAME" rtcommTopicPath="/RTCOMMTOPICNAME/" sharedSubscriptionPath="$SharedSubscription/RTCOMMTOPICNAME">
 
       <iceServerURL>stun:stun.l.google.com:19302</iceServerURL>
       <iceServerURL>stun:stun1.l.google.com:19302</iceServerURL>
       <iceServerURL>stun:stun2.l.google.com:19302</iceServerURL>
 
-   	  <callQueue description="Healthcasre Doctors" signalingTopicName="DoctorsQueueSignaling" topicName="Doctors" callQueueID="Healthcare Doctors"/>
+   	  <callQueue description="Healthcare Doctors" signalingTopicName="DoctorsQueueSignaling" topicName="Doctors" callQueueID="Healthcare Doctors"/>
       <callQueue callQueueID="Healthcare Agents" signalingTopicName="AgentsQueueSignaling" topicName="AgentsQueue" description="Agents Queue "></callQueue>
     </rtcomm>
 
