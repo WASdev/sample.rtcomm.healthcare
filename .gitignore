@@ -1,0 +1,5 @@
+.classpath
+.factorypath
+.settings
+/bin/
+WebContent/bower_components/

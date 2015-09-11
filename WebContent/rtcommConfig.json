@@ -1,8 +1,0 @@
-{
-  "server" : "localhost",
-	"port" : 9080,
-	"rtcommTopicPath" : "/rtcomm/",
-	"broadcastAudio" : true,
-	"broadcastVideo" : true,
-	"identityServlet" : "../HCareIdentity"
-}
