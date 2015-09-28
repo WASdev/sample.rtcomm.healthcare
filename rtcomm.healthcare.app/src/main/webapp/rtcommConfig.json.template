@@ -1,0 +1,19 @@
+// ******** DELETE THESE LINES *************
+//  WARNING:  You MUST Change the 'MQTTSERVERHOSTNAME' and 'RTCOMMTOPICPATH' below.
+//
+// server --> MQTT Server.  There is a public one at messagesight.demos.ibm.com.
+// port --> MQTT Server WEBSOCKET Port. For IBM MessageSight this is usually 1883,
+//          You need to check the documentation of other brokers.
+// rtcommTopicPath --> If you are using a SHARED/PUBLIC MQTT Server, you MUST make
+//                     sure this is unique to your environment.  Try something like:
+//                     "/rtcommHealthcare-<somerandomnumber>/"
+//
+// This MUST match what is in the Liberty server.xml file (An example is in serverxml/server.xml)
+{
+  "server" : "messagesight.demos.ibm.com>",
+	"port" : 1883,
+	"rtcommTopicPath" : "/maven-healthcare/",
+	"broadcastAudio" : true,
+	"broadcastVideo" : true,
+	"identityServlet" : "../HCareIdentity"
+}

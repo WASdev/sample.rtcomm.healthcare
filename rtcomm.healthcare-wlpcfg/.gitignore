@@ -1,0 +1,13 @@
+/build
+
+/.settings
+/.gradle
+/.project
+/servers/*/apps
+/servers/*/logs
+/servers/*/workarea
+
+/bin
+/servers/.classCache
+/target
+/target/*
