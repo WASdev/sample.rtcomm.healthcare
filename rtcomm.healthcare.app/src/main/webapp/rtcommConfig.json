@@ -1,0 +1,8 @@
+{
+  "server" : "messagesight.demos.ibm.com",
+	"port" : 1883,
+	"rtcommTopicPath" : "/TEMPORARY/",
+	"broadcastAudio" : true,
+	"broadcastVideo" : true,
+	"identityServlet" : "../HCareIdentity"
+}

@@ -158,7 +158,7 @@
                       </goals>
                       <!-- Optional configuration which provides for running any npm command -->
                       <configuration>
-                          <arguments>install bower</arguments>
+                          <arguments>install shortid bower grunt-cli grunt-string-replace</arguments>
                       </configuration>
                   </execution>
 
@@ -167,9 +167,26 @@
                <goals>
                  <goal>bower</goal>
                </goals>
-               
+
              </execution>
-           </executions>
+
+           <execution>
+    <id>grunt build</id>
+    <goals>
+        <goal>grunt</goal>
+    </goals>
+
+    <!-- optional: the default phase is "generate-resources" -->
+    <phase>generate-resources</phase>
+
+    <configuration>
+        <!-- optional: if not specified, it will run Grunt's default
+        task (and you can remove this whole <configuration> section.) -->
+        <arguments>string-replace</arguments>
+    </configuration>
+</execution>
+</executions>
+
          </plugin>
             <plugin>
 
@@ -260,16 +277,15 @@
                             <skip>${wlp.bad.install}</skip>
                         </configuration>
                     </execution>
-                    <!-- <execution>
-                        <id>stop-server</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop-server</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${wlp.bad.install}</skip>
-                        </configuration>
-                    </execution> -->
+                    <execution>
+      <id>stop-server</id>
+      <phase>post-integration-test</phase>
+
+      <goals>
+          <goal>stop-server</goal>
+      </goals>
+
+  </execution>
                 </executions>
             </plugin>
             <!-- Plugin to run functional tests -->
@@ -354,6 +370,24 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.6.1</version>
+        <executions>
+          <execution>
+            <id>auto-clean</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+
+
+
+        </executions>
+      </plugin>
         </plugins>
     </build>
 
