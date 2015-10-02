@@ -5,36 +5,82 @@ This sample demonstrates using the WASdev/lib.rtcomm.clientjs and WASdev/lib.ang
 2.  Healthcare Agent -- A support agent providing assistance with using the website via chat and video.
 3.  Healthcare Doctor -- A Doctor who is available to provide immediate assistance through chat andvideo.
 
-A live demo of this app is located here:  http://rtcomm-healthcare.wasdev.developer.ibm.com/sample.rtcomm.healthcare/
+A live demo of this app is located here:  http://rtcomm-healthcare.wasdev.developer.ibm.com/
 
 ##Requirements
 
-1.  A Liberty Profile server that runs with the `rtcomm-1.0` feature enabled. 
+1.  A Liberty Profile server that runs with the `rtcomm-1.0` feature enabled.
 2.  Chrome or Firefox web browsers that support WebRTC.
 3.  Eclipse with the latest beta of the WDT Tools installed.
 4.  bower package manager
 
-##Installation
+##Building and Running The Sample
+
+### Command Line
+
+##### Clone the Git Repo
+Clone the repository into a directory (i.e. $HOME/sample.rtcomm.healthcare)
+
+```
+git clone https://github.com/WASdev/sample.rtcomm.healthcare.git
+```
+##### Building the Sample Using Apache Maven
+
+Use Maven to build the sample
+
+```
+mvn install
+```
+
+<!-- In order to run the sample a valid installation of liberty is needed:
+
++ If you have a local WAS Liberty Installation you can specify the path:
+
+```
+mvn install -Pwlp-install -Dwlp.install.dir=/path/to/installed/wlp
+```
+
++ Specify a licensed version of Liberty that can be downloaded by the liberty-maven-plugin
+
+The current developer license can be found at the bottom of the
+```
+mvn install -Pwlp-download -Dwlp.license=<license code>
+``` -->
+##### Running the sample locally
+
+Use the following to start the server and run the application
+
+```
+export WLP_USER_DIR=/path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg
+/path/to/wlp/bin/server run RtcommHealthcareServer
+```
+### Eclipse and Websphere Developer Tools
+
+
+
+
+
+
 
 1. Clone the repository into a directory (i.e. $HOME/sample.rtcomm.healthcare)
-  
+
   ```
   git clone https://github.com/WASdev/sample.rtcomm.healthcare.git
   ```
 2. Install package dependecies:
-  
-  ``` 
+
+  ```
   cd $HOME/sample.rtcomm.healthcare/WebContent
   bower install
   ```
-3. Import the project into Eclipse 
+3. Import the project into Eclipse
 4. Create a new liberty server(Presuming Liberty is already installed into the directory '$WLP')
-  
+
   ```
   $WLP/bin/server create ibmhealth
   ```
 6.  Copy the serverxml/server.xml from the cloned project into the Liberty ibmhealth server directory.
-  
+
   ```
   cp $HOME/sample.rtcomm.healthcare/serverxml/server.xml $WLP/usr/servers/ibmhealth
   ```

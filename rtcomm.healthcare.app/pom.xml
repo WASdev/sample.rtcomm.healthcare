@@ -30,7 +30,7 @@
         <devtestProps>${project.parent.basedir}/devtest.properties</devtestProps>
 
         <wlpServerName>RtcommHealthcareServer</wlpServerName>
-        <wlpUserDir>${project.parent.basedir}/rtcomm.healthcare-wlpcfg</wlpUserDir>
+        <wlpUserDir>${project.parent.basedir}/rtcomm.healthcare.wlpcfg</wlpUserDir>
         <wlpServerDir>${wlpUserDir}/servers/${wlpServerName}</wlpServerDir>
         <wlpOutputDir>${project.build.directory}/wlp.output</wlpOutputDir>
 
@@ -116,7 +116,7 @@
         </dependency>
         <dependency>
             <groupId>net.wasdev.wlp.sample</groupId>
-            <artifactId>rtcomm.healthcare-wlpcfg</artifactId>
+            <artifactId>rtcomm.healthcare.wlpcfg</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
