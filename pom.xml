@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>net.wasdev.wlp.sample</groupId>
-    <artifactId>rtcomm.healthcare</artifactId>
+    <artifactId>sample.rtcomm.healthcare</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>WAS Liberty Sample - Rtcomm Healthcare Sample</name>
@@ -71,7 +71,7 @@
     </repositories>
 
     <modules>
-    	<module>rtcomm.healthcare-wlpcfg</module>
+    	<module>rtcomm.healthcare.wlpcfg</module>
     	<module>rtcomm.healthcare.app</module>
     </modules>
 
