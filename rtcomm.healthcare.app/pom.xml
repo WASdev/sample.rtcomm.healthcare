@@ -267,7 +267,7 @@
                             <include>usr</include>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!-- <execution>
                         <id>start-server</id>
                         <phase>pre-integration-test</phase>
                         <goals>
@@ -285,7 +285,7 @@
           <goal>stop-server</goal>
       </goals>
 
-  </execution>
+  </execution> -->
                 </executions>
             </plugin>
             <!-- Plugin to run functional tests -->

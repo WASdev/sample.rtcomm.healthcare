@@ -54,7 +54,7 @@ Use the following to start the server and run the application
 export WLP_USER_DIR=/path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg
 /path/to/wlp/bin/server run RtcommHealthcareServer
 ```
-### Eclipse and Websphere Developer Tools
+<!-- ### Eclipse and Websphere Developer Tools
 
 
 
@@ -95,4 +95,4 @@ export WLP_USER_DIR=/path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg
     3.  IN the rtcommConfig.json file, change the "\<RTCOMMTOPICPATH\>" to match the value chosen above
 8.  In Eclipse, deploy the application to the Liberty server.
 9.  Start Liberty.
-10.  Access 'http://localhost:9080/sample.rtcomm.healthcare/' in order to play with the sample.
+10.  Access 'http://localhost:9080/sample.rtcomm.healthcare/' in order to play with the sample. -->
