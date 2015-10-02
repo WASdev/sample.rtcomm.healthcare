@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   var shortid = require('shortid');
 
-  topicpath = shortid.generate();
+  topicpath = "HCareSample"+shortid.generate();
 
   grunt.initConfig({
 
@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   dist: {
     files: [{
       expand: true,
-      src: ['rtcommConfig.json', '../../../../rtcomm.healthcare-wlpcfg/servers/RtcommHealthcareServer/server.xml']
+      src: ['rtcommConfig.json', '../../../../rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/server.xml']
 
 
     }],
