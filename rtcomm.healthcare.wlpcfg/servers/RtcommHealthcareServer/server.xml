@@ -55,7 +55,7 @@
     <applicationMonitor updateTrigger="mbean"/>
 
     <webApplication id="sample.rtcomm.healthcare"
-    	location="sample.rtcomm.healthcare.app.war"
+    	location="rtcomm.healthcare.app.war"
     	name="sample.rtcomm.healthcare">
     	<application-bnd>
     		<security-role name="agent">
