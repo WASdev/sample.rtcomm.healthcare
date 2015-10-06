@@ -6,7 +6,7 @@
     <artifactId>sample.rtcomm.healthcare</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>sample.rtcomm.healthcare.app</artifactId>
+  <artifactId>rtcomm.healthcare.app</artifactId>
   <packaging>war</packaging>
   <name>WAS Liberty Sample - Rtcomm Healthcare Sample Application</name>
   <url>https://wasdev.github.io</url>
@@ -352,33 +352,7 @@
     </execution>
   </executions>
 </plugin>
-<plugin>
-  <artifactId>maven-clean-plugin</artifactId>
-  <version>2.6.1</version>
 
-  <configuration>
-  <filesets>
-    <fileset>
-      <directory>src/main/webapp/</directory>
-      <includes>
-        <include>node_modules/*</include>
-        <include>*/bower_components/*</include>
-        <include>*/node/*</include>
-      </includes>
-      <followSymlinks>false</followSymlinks>
-    </fileset>
-  </filesets>
-</configuration>
-  <executions>
-    <execution>
-      <id>auto-clean</id>
-      <phase>initialize</phase>
-      <goals>
-        <goal>clean</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
 </plugins>
 </build>
 <!-- <profiles>
