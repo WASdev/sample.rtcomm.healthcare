@@ -31,8 +31,8 @@ ___
 #### Clone the Git Repo
 
 1. Open the Git repositories view
-  +  *Window -> Show View -> Other *
-  + Type *git* in the filter box and select ** Git Repositories **
+  +  *Window -> Show View -> Other*
+  + Type *git* in the filter box and select **Git Repositories**
   + Click on *Clone a Git Repository*
 2. Copy and paste the Github repository URI (https://github.com/jfmartinez/sample.rtcomm.healthcare.git) to the Location URI text field on Eclipse
 3. Click 'Next', select only the 'maven-setup' branch
@@ -64,7 +64,7 @@ Import Maven projects into WDT
 
 1. Open the 'Runtime Explorer' view
   + *Window -> Show View -> Other*
-  + Type *runtime* in the filterbox and select ** Runtime Explorer **
+  + Type *runtime* in the filterbox and select **Runtime Explorer**
 2. Right-click the view and select *New -> Runtime Environment*
 3. Give the Runtime environment a name, e.g.
 `wlp-2015.8.0.0` if you're using the August 2015 release
@@ -72,10 +72,10 @@ Import Maven projects into WDT
   + Select an existing installation
   + Select *Install from an archive or a repository* to download a new Liberty archive
 5. Follow the prompts:
-  + If you decided to download Liberty, choose "WAS Liberty V8.5.5.7 with Java EE 7 Web " please install the following add-ons when prompted
+  + If you decided to download Liberty, choose "WAS Liberty V8.5.5.7 Runtime " please install the following add-ons when prompted
     + `Real-Time Communications [rtcomm-1.0]` "rtcomm" in the text filter
     + `JsonP (javax.json) Sample [jsonp-1.0]` - Type "jsonp" in the text filter
-    + `Java Servlets 3.1 [servlet-3.1]` - Type "sevlet" in the text filter and scroll down
+    + `Java Servlets 3.1 [servlet-3.1]` - Type "servlet" in the text filter and scroll down
 
 
 ###### Add the User Directory from the Maven project and create a Server
@@ -92,10 +92,12 @@ Import Maven projects into WDT
 
 ###### Running the Sample Application
 
-1. Select the '*rtcomm.healthcare.app*' project
-2. * Right-click -> Run As -> Run On Server *
-3. Select the 'Websphere Application Server under localhost" folder and select *Finish*
-4. Open the sample at http://localhost:9080/sample.rtcomm.healthcare/
+1. Open the 'Servers' view
+  + *Window -> Show View -> Other*
+  + Type *servers* in the filterbox and select **Servers**
+2. Right-click on the server at localhost [RtcommHealthcareServer]
+  + Click 'Start'
+3. Open the sample at http://localhost:9080/sample.rtcomm.healthcare/
 
 ___
 
@@ -120,7 +122,7 @@ In order to run the sample, you need a valid installation of liberty. If you alr
 
 Specify a licensed version of liberty that should be downloaded by the liberty-maven -plugin. The current developer license can be found at the bottom of the [curent license](http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/8.5.5.5/lafiles/runtime/en.html), look for the 'D/N: &lt;license code&gt;'.
 
-Now use Maven to download Liberty (it will be downloaded to the ** /path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg/target/** directory)
+Now use Maven to download Liberty (it will be downloaded to the **/path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg/target/** directory)
 ```
 mvn install -Pwlp-download -Dwlp.license=<license code>
 ```

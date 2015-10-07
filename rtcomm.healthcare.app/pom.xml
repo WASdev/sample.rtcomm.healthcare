@@ -43,31 +43,25 @@
 
     <dependencyManagement>
         <dependencies>
+        <dependency>
+      <groupId>com.ibm.tools.target</groupId>
+      <artifactId>was-liberty</artifactId>
+      <version>LATEST</version>
+      <type>pom</type>
+      <scope>provided</scope>
+</dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
             </dependency>
-            <dependency>
-                <groupId>javax.ws.rs</groupId>
-                <artifactId>javax.ws.rs-api</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.json</groupId>
-                <artifactId>javax.json-api</artifactId>
-                <version>1.0</version>
-            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-client</artifactId>
-                <version>3.1.1</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.json</artifactId>
@@ -77,7 +71,9 @@
     </dependencyManagement>
 
     <dependencies>
+
       <dependency>
+
         <groupId>com.ibm.tools.target</groupId>
         <artifactId>was-liberty</artifactId>
         <version>LATEST</version>
@@ -89,26 +85,14 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.json</groupId>
-            <artifactId>javax.json-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-rs-client</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
@@ -235,7 +219,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>net.wasdev.wlp.sample</groupId>
-                                    <artifactId>sample.rtcomm.healthcare</artifactId>
+                                    <artifactId>rtcomm.healthcare.app</artifactId>
                                     <version>1.0-SNAPSHOT</version>
                                     <type>war</type>
                                 </artifactItem>
@@ -372,22 +356,7 @@
             </plugin>
 
 
-            <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>2.6.1</version>
-        <executions>
-          <execution>
-            <id>auto-clean</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
 
-
-
-        </executions>
-      </plugin>
         </plugins>
     </build>
 
