@@ -43,11 +43,6 @@
         <version>3.1.0</version>
       </dependency>
       <dependency>
-        <groupId>javax.ws.rs</groupId>
-        <artifactId>javax.ws.rs-api</artifactId>
-        <version>2.0.1</version>
-      </dependency>
-      <dependency>
         <groupId>javax.json</groupId>
         <artifactId>javax.json-api</artifactId>
         <version>1.0</version>
@@ -56,11 +51,6 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.12</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-rs-client</artifactId>
-        <version>3.1.1</version>
       </dependency>
       <dependency>
         <groupId>org.glassfish</groupId>
@@ -83,11 +73,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>javax.json</groupId>
       <artifactId>javax.json-api</artifactId>
       <scope>provided</scope>
@@ -95,11 +80,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-rs-client</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
