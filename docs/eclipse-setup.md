@@ -1,9 +1,9 @@
-# Eclipse with WDT
+### Eclipse with WDT
 
 [Install WDT on Eclipse](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-eclipse/)
 
 
-## Clone the Git Repo
+#### Clone the Git Repo
 
 1. Open the Git repositories view
   +  *Window -> Show View -> Other...*
@@ -13,9 +13,9 @@
 3. Click 'Next', select only the 'maven-setup' branch, uncheck the other branches that may have been selected and Click 'Next'
 4. Click on 'Finish'
 
-## Building with Maven
+#### Building with Maven
 
-####Import Maven projects into WDT
+######Import Maven projects into WDT
 
 1. In the *Git Repositories* view, expand the **sample.rtcomm.healthcare** repo
 2. Right-click on the "Working Directory" folder and select "Copy Path to Clipboard"
@@ -26,15 +26,15 @@
   + *rtcomm.healthcare.app* - Application part of the sample
   + *rtcomm.healthcare.wlpcfg* - Liberty server configuration of the sample
   + *sample.rtcomm.healthcare* - Root directory of the sample
-#### Run Maven Install
+###### Run Maven Install
 1. Right-click on sample.rtcomm.healthcare/pom.xml
 2. *Run As -> Maven Build...*
 3. In the **Goals** section enter "install"
 4. Click Run
 
-## Run the application locally
+#### Run the application locally
 
-#### Create a runtime Environment in Eclipse
+###### Create a runtime Environment in Eclipse
 
 1. Open the 'Runtime Explorer' view
   + *Window -> Show View -> Other*
@@ -52,7 +52,7 @@
     + `Java Servlets 3.1 [servlet-3.1]` - Type "servlet" in the text filter and scroll down
 
 
-#### Add the User Directory from the Maven project and create a Server
+###### Add the User Directory from the Maven project and create a Server
 
 1. Right-click on the Runtime Environment created above located in the 'Runtime Explorer' view and select 'Edit'
 2. Click the **Advanced Options...** link
@@ -64,7 +64,7 @@
 5. A dialog should appear with the **RtcommHealthcareServer** Liberty Profile server
 6. Click Finish
 
-#### Running the Sample Application
+###### Running the Sample Application
 
 1. Open the 'Servers' view
   + *Window -> Show View -> Other*
