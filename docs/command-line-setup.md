@@ -17,7 +17,7 @@ mvn install
 
 In order to run the sample, you need a valid installation of liberty. If you already have a version of liberty you can skip this step.
 
-Specify a licensed version of liberty that should be downloaded by the liberty-maven -plugin. The current developer license can be found at the bottom of the [curent license](http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/8.5.5.5/lafiles/runtime/en.html), look for the 'D/N: &lt;license code&gt;'.
+Specify a licensed version of liberty that should be downloaded by the liberty-maven -plugin. The current developer license can be found at the bottom of the [current license](http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/8.5.5.5/lafiles/runtime/en.html), look for the 'D/N: &lt;license code&gt;'.
 
 Now use Maven to download Liberty (it will be downloaded to the **/path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg/target/** directory)
 ```
