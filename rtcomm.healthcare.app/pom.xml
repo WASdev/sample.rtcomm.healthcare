@@ -26,7 +26,6 @@
     <url>git@github.com:WASdev/sample.rtcomm.healthcare.git</url>
   </scm>
 
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -41,7 +40,6 @@
         <artifactId>javax.servlet-api</artifactId>
         <version>3.1.0</version>
       </dependency>
-
       <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.json</artifactId>
@@ -51,9 +49,7 @@
   </dependencyManagement>
 
   <dependencies>
-
     <dependency>
-
       <groupId>com.ibm.tools.target</groupId>
       <artifactId>was-liberty</artifactId>
       <version>LATEST</version>
@@ -65,8 +61,6 @@
       <artifactId>javax.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
-
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>javax.json</artifactId>
@@ -99,70 +93,43 @@
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>0.0.23</version>
-
+        <version>0.0.26</version>
         <configuration>
           <workingDirectory>src/main/webapp</workingDirectory>
+          <installDirectory>./</installDirectory>
         </configuration>
         <executions>
-
           <execution>
-            <!-- optional: you don't really need execution ids,
-    but it looks nice in your build log. -->
             <id>install node and npm</id>
             <goals>
               <goal>install-node-and-npm</goal>
             </goals>
-            <!-- optional: default phase is "generate-resources" -->
-            <phase>generate-resources</phase>
             <configuration>
-              <nodeVersion>v0.12.2</nodeVersion>
-              <npmVersion>2.7.6</npmVersion>
-
-              <!-- optional: where to install node and npm. Defaults to the working directory -->
-              <!-- <installDirectory>target</installDirectory> -->
+              <nodeVersion>v4.1.1</nodeVersion>
+              <npmVersion>3.3.3</npmVersion>
+              <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+              <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
             </configuration>
           </execution>
           <execution>
-            <id>npm install</id>
+            <id>install npm modules</id>
             <goals>
               <goal>npm</goal>
             </goals>
-            <!-- Optional configuration which provides for running any npm command -->
             <configuration>
-              <arguments>install shortid bower grunt-cli grunt-string-replace</arguments>
+              <arguments>install bower</arguments>
             </configuration>
           </execution>
-
           <execution>
             <id>bower install</id>
             <goals>
               <goal>bower</goal>
             </goals>
-
-          </execution>
-
-          <execution>
-            <id>grunt build</id>
-            <goals>
-              <goal>grunt</goal>
-            </goals>
-
-            <!-- optional: the default phase is "generate-resources" -->
-            <phase>generate-resources</phase>
-
-            <configuration>
-              <!-- optional: if not specified, it will run Grunt's default
-        task (and you can remove this whole <configuration> section.) -->
-              <arguments>string-replace</arguments>
-            </configuration>
           </execution>
         </executions>
-
       </plugin>
 
       <plugin>
-
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
@@ -207,9 +174,25 @@
           <serverName>RtcommHealthcareServer</serverName>
           <userDirectory>${basedir}/../rtcomm.healthcare.wlpcfg</userDirectory>
         </configuration>
-
       </plugin>
 
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>node_modules/*</include>
+                <include>bower_components/*</include>
+                <include>**/rtcommConfig.json</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -221,7 +204,7 @@
             </properties>
         </profile>
     </profiles> -->
-    <profiles>
+  <!-- <profiles>
         <profile>
             <id>check-liberty-present</id>
             <activation>
@@ -234,6 +217,5 @@
                 <libertyBaseDir>${libertyRoot}</libertyBaseDir>
             </properties>
         </profile>
-      </profiles>
-
+      </profiles> -->
 </project>

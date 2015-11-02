@@ -189,9 +189,18 @@ downloads in automated builds.
                                 <include>**/workarea/*</include>
                             </includes>
                         </fileset>
+                        <fileset>
+                          <directory>./servers/RtcommHealthcareServer</directory>
+                          <includes>
+                            <include>**/server.xml</include>
+                          </includes>
+                          <followSymlinks>false</followSymlinks>
+                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
+
+      
     	</plugins>
     </build>
 
