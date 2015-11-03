@@ -36,11 +36,6 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>3.1.0</version>
-      </dependency>
-      <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.json</artifactId>
         <version>1.0.4</version>
@@ -55,16 +50,6 @@
       <version>LATEST</version>
       <type>pom</type>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>net.wasdev.wlp.sample</groupId>
@@ -184,9 +169,16 @@
             <fileset>
               <directory>src/main/webapp</directory>
               <includes>
-                <include>node_modules/*</include>
-                <include>bower_components/*</include>
+                <include>**/node_modules/**</include>
+                <include>**/bower_components/**</include>
                 <include>**/rtcommConfig.json</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>./</directory>
+              <includes>
+                <include>**/node/**</include>
               </includes>
               <followSymlinks>false</followSymlinks>
             </fileset>

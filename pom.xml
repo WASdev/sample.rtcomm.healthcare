@@ -135,8 +135,9 @@
   </repositories>
 
   <modules>
-    <module>rtcomm.healthcare.wlpcfg</module>
     <module>rtcomm.healthcare.app</module>
+    <module>rtcomm.healthcare.wlpcfg</module>
+
   </modules>
 
 </project>
