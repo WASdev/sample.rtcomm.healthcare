@@ -13,9 +13,18 @@ Change to the created directory and use Maven to build the sample
 ```
 mvn install
 ```
-###### Download Liberty
 
-In order to run the sample, you need a valid installation of liberty. If you already have a version of liberty you can skip this step.
+In order to run the sample, you need a valid installation of liberty.
+
+###### Using a local Liberty installation
+
+To learn how to download and install Liberty locally go here: [Download WAS Liberty](docs/Download-WAS-Liberty.md)
+
+```
+mvn install -Pwlp-local -Dwlp.install.dir=/path/to/liberty/installation/
+```
+
+###### Download Liberty to the Project using Maven
 
 Specify a licensed version of liberty that should be downloaded by the liberty-maven -plugin. The current developer license can be found at the bottom of the [current license](http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/8.5.5.5/lafiles/runtime/en.html), look for the 'D/N: &lt;license code&gt;'.
 
@@ -25,46 +34,10 @@ mvn install -Pwlp-download -Dwlp.license=<license code>
 ```
 #### Running the sample locally
 
-
-If you have a valid installation of Liberty with the `rtcomm-1.0` feature already installed  use the following to start the server and run the application
-
-###### For Unix based operating systems,
-
-
+Once the installation process is completed, you can run the sample by:
 ```
-export WLP_USER_DIR=/path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg
-
+cd rtcomm.healthcare.wlpcfg
+mvn liberty:run-server
 ```
-
-To start the server and run the application
-```
-/path/to/wlp/bin/server run RtcommHealthcareServer
-```
-
-If you downloaded Liberty using maven in this project you can use the  installation to run the server:
-
-````
-export WLP_USER_DIR=/path/to/sample.rtcomm.healthcare/rtcomm.healthcare.wlpcfg
-rtcomm.healthcare.wlpcfg/target/liberty/wlp/bin/server run RtcommHealthcareServer
-````
-
-Access the sample at: (http://localhost:9080/sample.rtcomm.healthcare/)
-
-<br/>
-
-###### For Windows systems,
-```
-set WLP_USER_DIR=drive_path\to\sample.rtcomm.healthcare\rtcomm.healthcare.wlpcfg
-
-```
-
-To start the server and run the application
-```
-drive_path\to\wlp\bin\server run RtcommHealthcareServer
-```
-If you downloaded Liberty using maven in this project you can use the  installation to run the server:
-```
-set WLP_USER_DIR=drive_path\to\sample.rtcomm.healthcare\rtcomm.healthcare.wlpcfg
-drive_path\to\sample.rtcomm.healthcare\rtcomm.healthcare.wlpcfg\target\liberty\wlp\bin\server run RtcommHealthcareServer
-```
-Access the sample at: (http://localhost:9080/sample.rtcomm.healthcare/)
+This will run the server on the foreground.
+Access the sample at: [http://localhost:9080/sample.rtcomm.healthcare/](http://localhost:9080/sample.rtcomm.healthcare/)

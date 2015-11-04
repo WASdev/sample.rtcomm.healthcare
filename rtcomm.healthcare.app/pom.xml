@@ -92,19 +92,19 @@
           <fileset>
             <directory>src/main/webapp</directory>
             <includes>
-              <include>**/node_modules/**</include>
-              <include>**/bower_components/**</include>
+              <!-- <include>**/node_modules/**</include>
+              <include>**/bower_components/**</include> -->
               <include>**/rtcommConfig.json</include>
             </includes>
             <followSymlinks>false</followSymlinks>
           </fileset>
-          <fileset>
+          <!-- <fileset>
             <directory>./</directory>
             <includes>
               <include>**/node/**</include>
             </includes>
             <followSymlinks>false</followSymlinks>
-          </fileset>
+          </fileset> -->
         </filesets>
       </configuration>
     </plugin>
