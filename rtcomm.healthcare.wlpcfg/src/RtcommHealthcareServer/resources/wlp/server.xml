@@ -17,7 +17,7 @@
    <!-- Change this to a path like "/rtcommSomeUniqueName/" NOTE:  When using a public/shared MQTT Server, it is MANDATORY that this be Unique.  -->
    <!--          Try something like "/rtcommHealthcareSomeUniqueID/"   -->
    <!--       >>>>>>> These should match what is in the WebContent/rtcommConfig.json file. <<<<<<<<<<< -->
-    <rtcomm messageServerHost="messagesight.demos.ibm.com" rtcommTopicPath="/HCare-20151104-001926/" sharedSubscriptionPath="$SharedSubscription/HCare-20151104-001926/">
+    <rtcomm messageServerHost="messagesight.demos.ibm.com" rtcommTopicPath="/HCare-20151104-141846/" sharedSubscriptionPath="$SharedSubscription/HCare-20151104-141846/">
 
       <iceServerURL>stun:stun.l.google.com:19302</iceServerURL>
       <iceServerURL>stun:stun1.l.google.com:19302</iceServerURL>
