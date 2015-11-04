@@ -1,0 +1,72 @@
+<server description="ibmhealth server">
+
+    <!-- Enable features -->
+    <featureManager>
+	<feature>servlet-3.1</feature>
+        <feature>jsp-2.2</feature>
+        <feature>rtcomm-1.0</feature>
+        <feature>ssl-1.0 </feature>
+        <feature>appSecurity-2.0</feature>
+	     <feature>localConnector-1.0</feature>
+    </featureManager>
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+
+   <!--  *************** WARNING *************** -->
+   <!-- Change 'messagesight.demos.ibm.com' to a valid MQTT Server. For development purposes, you can try a public server at: messagesight.demos.ibm.com -->
+   <!-- Change this to a path like "/rtcommSomeUniqueName/" NOTE:  When using a public/shared MQTT Server, it is MANDATORY that this be Unique.  -->
+   <!--          Try something like "/rtcommHealthcareSomeUniqueID/"   -->
+   <!--       >>>>>>> These should match what is in the WebContent/rtcommConfig.json file. <<<<<<<<<<< -->
+    <rtcomm messageServerHost="messagesight.demos.ibm.com" rtcommTopicPath="/HCare-20151104-001926/" sharedSubscriptionPath="$SharedSubscription/HCare-20151104-001926/">
+
+      <iceServerURL>stun:stun.l.google.com:19302</iceServerURL>
+      <iceServerURL>stun:stun1.l.google.com:19302</iceServerURL>
+      <iceServerURL>stun:stun2.l.google.com:19302</iceServerURL>
+
+   	  <callQueue description="Healthcare Doctors" signalingTopicName="DoctorsQueueSignaling" topicName="Doctors" callQueueID="Healthcare Doctors"/>
+      <callQueue callQueueID="Healthcare Agents" signalingTopicName="AgentsQueueSignaling" topicName="AgentsQueue" description="Agents Queue "></callQueue>
+    </rtcomm>
+
+    <logging traceSpecification="*=info:com.ibm.ws.rtcomm.*=all"/>
+
+    <basicRegistry realm="HealthRealm">
+    	<group name="Doctors">
+    		<member name="doctor1@ibmhealth.com"/>
+    		<member name="doctor2@ibmhealth.com"/>
+    	</group>
+    	<group name="Patients">
+    		<member name="patient1@somecompany.com"/>
+    		<member name="patient2@somecompany.com"/>
+    		<member name="agent1@ibmhealth.com"/>
+    		<member name="agent2@ibmhealth.com"/>
+    	</group>
+    	<group name="Agents">
+    		<member name="agent1@ibmhealth.com"/>
+    		<member name="agent2@ibmhealth.com"/>
+    	</group>
+    	<user name="patient1@somecompany.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="patient2@somecompany.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="agent1@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="agent2@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="doctor1@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
+    	<user name="doctor2@ibmhealth.com" password="{xor}Lz4sLCgwLTs="/>
+    </basicRegistry>
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+    <webApplication id="sample.rtcomm.healthcare"
+    	location="rtcomm.healthcare.app.war"
+    	name="sample.rtcomm.healthcare">
+    	<application-bnd>
+    		<security-role name="agent">
+    			<group name="Agents"></group>
+    		</security-role>
+    		<security-role name="patient">
+    			<group name="Patients"></group>
+    		</security-role>
+    		<security-role name="doctor">
+    			<group name="Doctors"></group>
+    		</security-role>
+    	</application-bnd>
+    </webApplication>
+  </server>
