@@ -47,129 +47,138 @@
   </dependencies>
 
   <pluginRepositories>
-       <!-- Configure Sonatype OSS Maven snapshots repository -->
-       <pluginRepository>
-           <id>sonatype-nexus-snapshots</id>
-           <name>Sonatype Nexus Snapshots</name>
-           <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-           <snapshots>
-               <enabled>true</enabled>
-           </snapshots>
-           <releases>
-               <enabled>false</enabled>
-           </releases>
-       </pluginRepository>
-   </pluginRepositories>
+    <!-- Configure Sonatype OSS Maven snapshots repository -->
+    <pluginRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
 
   <build>
-
-    <!-- Define and configure plugins -->
+    <pluginManagement>
       <plugins>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.3.2</version>
-          <configuration>
-            <encoding>UTF-8</encoding>
-            <source>1.6</source>
-            <target>1.6</target>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>2.3</version>
-          <configuration>
-            <!-- Ignore error about missing web.xml -->
-            <failOnMissingWebXml>false</failOnMissingWebXml>
-            <archive>
-              <!-- Do not include META-INF/maven to avoid long file problems on windows -->
-              <addMavenDescriptor>false</addMavenDescriptor>
-            </archive>
-          </configuration>
-        </plugin>
         <plugin>
           <groupId>net.wasdev.wlp.maven.plugins</groupId>
           <artifactId>liberty-maven-plugin</artifactId>
-          <extensions>true</extensions>
           <version>1.1-SNAPSHOT</version>
-
-          <configuration>
-            <installDirectory>${wlp.install.dir}</installDirectory>
-            <serverName>RtcommHealthcareServer</serverName>
-            <outputDirectory>target</outputDirectory>
-            <!-- Use custom server.xml -->
-            <configFile>${project.basedir}/src/RtcommHealthcareServer/resources/wlp/server.xml</configFile>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>com.google.code.maven-replacer-plugin</groupId>
-          <artifactId>replacer</artifactId>
-          <version>1.5.3</version>
-          <executions>
-            <execution>
-              <id>replace RTCOMMTOPICPATH and MQTTSERVERHOSTNAME on rtcomm.healthcare.app/src/main/webapp</id>
-              <phase>generate-resources</phase>
-              <goals>
-                <goal>replace</goal>
-              </goals>
-              <configuration>
-                <file>rtcomm.healthcare.app/src/main/webapp/rtcommConfig.json.template</file>
-                <outputFile>
-                  rtcomm.healthcare.app/src/main/webapp/rtcommConfig.json
-                </outputFile>
-                <regex>false</regex>
-                <replacements>
-                  <replacement>
-                    <token>/RTCOMMTOPICPATH/</token>
-                    <value>/HCare-${maven.build.timestamp}/</value>
-                  </replacement>
-                  <replacement>
-                    <token>MQTTSERVERHOSTNAME</token>
-                    <value>messagesight.demos.ibm.com</value>
-                  </replacement>
-                </replacements>
-              </configuration>
-            </execution>
-
-            <execution>
-              <id>replace RTCOMMTOPICPATH and MQTTSERVERHOSTNAME on rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/</id>
-
-              <phase>generate-resources</phase>
-              <goals>
-                <goal>replace</goal>
-              </goals>
-              <configuration>
-                <file>rtcomm.healthcare.wlpcfg/src/RtcommHealthcareServer/resources/wlp/server.xml.template</file>
-                <outputFile>
-                  rtcomm.healthcare.wlpcfg/src/RtcommHealthcareServer/resources/wlp/server.xml
-                </outputFile>
-                <regex>false</regex>
-                <replacements>
-                  <replacement>
-                    <token>/RTCOMMTOPICPATH/</token>
-                    <value>/HCare-${maven.build.timestamp}/</value>
-                  </replacement>
-                  <replacement>
-                    <token>MQTTSERVERHOSTNAME</token>
-                    <value>messagesight.demos.ibm.com</value>
-                  </replacement>
-                </replacements>
-              </configuration>
-            </execution>
-          </executions>
-
         </plugin>
 
       </plugins>
+    </pluginManagement>
+    <!-- Define and configure plugins -->
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <!-- Ignore error about missing web.xml -->
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <archive>
+            <!-- Do not include META-INF/maven to avoid long file problems on windows -->
+            <addMavenDescriptor>false</addMavenDescriptor>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>net.wasdev.wlp.maven.plugins</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <version>1.1-SNAPSHOT</version>
+
+        <configuration>
+          <installDirectory>${wlp.install.dir}</installDirectory>
+          <serverName>RtcommHealthcareServer</serverName>
+          <outputDirectory>target</outputDirectory>
+          <!-- Use custom server.xml -->
+          <configFile>${project.basedir}/src/RtcommHealthcareServer/resources/wlp/server.xml</configFile>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
+        <executions>
+          <execution>
+            <id>replace RTCOMMTOPICPATH and MQTTSERVERHOSTNAME on rtcomm.healthcare.app/src/main/webapp</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <file>rtcomm.healthcare.app/src/main/webapp/rtcommConfig.json.template</file>
+              <outputFile>
+                rtcomm.healthcare.app/src/main/webapp/rtcommConfig.json
+              </outputFile>
+              <regex>false</regex>
+              <replacements>
+                <replacement>
+                  <token>/RTCOMMTOPICPATH/</token>
+                  <value>/HCare-${maven.build.timestamp}/</value>
+                </replacement>
+                <replacement>
+                  <token>MQTTSERVERHOSTNAME</token>
+                  <value>messagesight.demos.ibm.com</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>replace RTCOMMTOPICPATH and MQTTSERVERHOSTNAME on rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/</id>
+
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <file>rtcomm.healthcare.wlpcfg/src/RtcommHealthcareServer/resources/wlp/server.xml.template</file>
+              <outputFile>
+                rtcomm.healthcare.wlpcfg/src/RtcommHealthcareServer/resources/wlp/server.xml
+              </outputFile>
+              <regex>false</regex>
+              <replacements>
+                <replacement>
+                  <token>/RTCOMMTOPICPATH/</token>
+                  <value>/HCare-${maven.build.timestamp}/</value>
+                </replacement>
+                <replacement>
+                  <token>MQTTSERVERHOSTNAME</token>
+                  <value>messagesight.demos.ibm.com</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+        </executions>
+
+      </plugin>
+
+    </plugins>
   </build>
   <repositories>
-      <repository>
-        <id>was-repo</id>
-        <name>WAS Liberty Maven Repository</name>
-        <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
-      </repository>
-    </repositories>
+    <repository>
+      <id>was-repo</id>
+      <name>WAS Liberty Maven Repository</name>
+      <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
+    </repository>
+  </repositories>
   <modules>
     <module>rtcomm.healthcare.app</module>
     <module>rtcomm.healthcare.wlpcfg</module>
