@@ -13,12 +13,11 @@
   <name>RtcommHealthcare Server Assembly</name>
   <packaging>liberty-assembly</packaging>
 
-
   <properties>
 
-      <wlpUserDir>${basedir}</wlpUserDir>
-      <wlpServerName>RtcommHealthcareServer</wlpServerName>
-      <wlpServerDir>${wlpUserDir}/servers/${wlpServerName}</wlpServerDir>
+    <wlpUserDir>${basedir}</wlpUserDir>
+    <wlpServerName>RtcommHealthcareServer</wlpServerName>
+    <wlpServerDir>${wlpUserDir}/servers/${wlpServerName}</wlpServerDir>
 
   </properties>
   <dependencies>
@@ -30,19 +29,19 @@
     </dependency>
   </dependencies>
   <pluginRepositories>
-          <!-- Configure Sonatype OSS Maven snapshots repository -->
-          <pluginRepository>
-              <id>sonatype-nexus-snapshots</id>
-              <name>Sonatype Nexus Snapshots</name>
-              <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-              <snapshots>
-                  <enabled>true</enabled>
-              </snapshots>
-              <releases>
-                  <enabled>false</enabled>
-              </releases>
-          </pluginRepository>
-      </pluginRepositories>
+    <!-- Configure Sonatype OSS Maven snapshots repository -->
+    <pluginRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
   <build>
     <plugins>
       <plugin>
@@ -61,27 +60,10 @@
 
           <outputDirectory>${project.build.directory}/wlp.output</outputDirectory>
           <!-- Use custom server.xml -->
-          <configFile>${project.basedir}/src/RtcommHealthcareServer/resources/wlp/server.xml</configFile>
+          <configFile>${project.basedir}/${wlpServerDir}/server.xml</configFile>
         </configuration>
 
         <executions>
-          <!-- <execution>
-            <id>deploy web application</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>install-apps</goal>
-            </goals>
-            <configuration>
-              <appArtifact>
-                <groupId>net.wasdev.wlp.sample</groupId>
-                <artifactId>rtcomm.healthcare.app</artifactId>
-                <type>war</type>
-              </appArtifact>
-              <appsDirectory>apps</appsDirectory>
-              <stripVersion>true</stripVersion>
-            </configuration>
-          </execution> -->
-
           <execution>
             <id>install-feature</id>
             <phase>process-resources</phase>
@@ -104,92 +86,36 @@
       </plugin>
 
       <plugin>
-       <artifactId>maven-clean-plugin</artifactId>
-       <version>3.0.0</version>
-       <configuration>
-         <filesets>
-           <fileset>
-             <directory>servers/${wlpServerName}/</directory>
-             <includes>
-               <include>**/server.xml</include>
-             </includes>
-             <followSymlinks>false</followSymlinks>
-           </fileset>
-           <fileset>
-                            <directory>target</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>servers</directory>
-                            <followSymlinks>false</followSymlinks>
-                            <includes>
-                                <include>**/logs/*</include>
-                                <include>**/apps/*</include>
-                                <include>**/dropins/*</include>
-                                <include>**/workarea/*</include>
-                                <include>**/resources/*</include>
-                                <include>**/*.zip</include>
-                            </includes>
-                        </fileset>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>servers/${wlpServerName}/</directory>
+              <includes>
+                <include>**/server.xml</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>target</directory>
+            </fileset>
+            <fileset>
+              <directory>servers</directory>
+              <followSymlinks>false</followSymlinks>
+              <includes>
+                <include>**/logs/*</include>
+                <include>**/apps/*</include>
+                <include>**/dropins/*</include>
+                <include>**/workarea/*</include>
+                <include>**/resources/*</include>
+                <include>**/*.zip</include>
+              </includes>
+            </fileset>
 
-         </filesets>
-       </configuration>
-     </plugin>
+          </filesets>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-
-  <!-- <profiles> -->
-
-    <!-- Profile to download licensed liberty from the Liberty repository.
-        This profile is active by default and has the following optional properties:
-        (optional) -Dwlp.target.dir=<value>
-        (optional, the wlp dir will be inside this dir)
-    -->
-    <!-- <profile>
-        <id>wlp-download</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-        <properties> -->
-            <!-- Default location to download liberty -->
-            <!-- <wlp.target.dir>${project.build.directory}/liberty</wlp.target.dir>
-            <wlp.install.dir>${project.build.directory}/liberty/wlp</wlp.install.dir> -->
-            <!-- Default version -->
-            <!-- <wlp.version>8.5.+</wlp.version>
-        </properties>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>net.wasdev.wlp.maven.plugins</groupId>
-                    <artifactId>liberty-maven-plugin</artifactId>
-                    <version>1.1-SNAPSHOT</version>
-                    <configuration>
-                        <install>
-                            <type>webProfile7</type>
-                        </install>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-    </profile> -->
-
-    <!-- Profile to use an existing liberty installation. Activate this
-        profile (-Pwlp-local) and provide the following property: -Dwlp.install.dir=<value>
-        Versions are specified here: http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/index.yml -->
-    <!-- <profile>
-        <id>wlp-local</id>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>net.wasdev.wlp.maven.plugins</groupId>
-                    <artifactId>liberty-maven-plugin</artifactId>
-                <configuration>
-                    <installDirectory>${wlp.install.dir}</installDirectory>
-                </configuration>
-                </plugin>
-            </plugins>
-        </build>
-    </profile>
-
-</profiles> -->
-
 </project>
