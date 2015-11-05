@@ -13,6 +13,14 @@
   <name>RtcommHealthcare Server Assembly</name>
   <packaging>liberty-assembly</packaging>
 
+
+  <properties>
+
+      <wlpUserDir>${basedir}</wlpUserDir>
+      <wlpServerName>RtcommHealthcareServer</wlpServerName>
+      <wlpServerDir>${wlpUserDir}/servers/${wlpServerName}</wlpServerDir>
+
+  </properties>
   <dependencies>
     <dependency>
       <groupId>net.wasdev.wlp.sample</groupId>
@@ -45,8 +53,11 @@
 
         <configuration>
           <installDirectory>${wlp.install.dir}</installDirectory>
-          <serverName>RtcommHealthcareServer</serverName>
-          <outputDirectory>target</outputDirectory>
+          <serverName>${wlpServerName}</serverName>
+          <include>usr</include>
+          <userDirectory>${wlpUserDir}</userDirectory>
+
+          <outputDirectory>${project.build.directory}/wlp.output</outputDirectory>
           <!-- Use custom server.xml -->
           <configFile>${project.basedir}/src/RtcommHealthcareServer/resources/wlp/server.xml</configFile>
         </configuration>
@@ -79,7 +90,6 @@
               <features>
                 <acceptLicense>true</acceptLicense>
                 <feature>jsonp-1.0</feature>
-                <feature>jsp-2.2</feature>
                 <feature>rtcomm-1.0</feature>
                 <feature>ssl-1.0</feature>
                 <feature>appSecurity-2.0</feature>
@@ -97,12 +107,25 @@
        <configuration>
          <filesets>
            <fileset>
-             <directory>src/RtcommHealthcareServer/resources/wlp/</directory>
+             <directory>servers/${wlpServerName}/</directory>
              <includes>
                <include>**/server.xml</include>
              </includes>
              <followSymlinks>false</followSymlinks>
            </fileset>
+           <fileset>
+                            <directory>target</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>servers</directory>
+                            <followSymlinks>false</followSymlinks>
+                            <includes>
+                                <include>**/logs/*</include>
+                                <include>**/apps/*</include>
+                                <include>**/dropins/*</include>
+                                <include>**/workarea/*</include>
+                            </includes>
+                        </fileset>
 
          </filesets>
        </configuration>

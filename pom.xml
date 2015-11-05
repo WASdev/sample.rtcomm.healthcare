@@ -15,6 +15,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
+
+    <wlpUserDir>${basedir}</wlpUserDir>
+    <wlpServerName>RtcommHealthcareServer</wlpServerName>
+    <wlpServerDir>${wlpUserDir}/servers/${wlpServerName}</wlpServerDir>
+
   </properties>
 
   <!-- Define dependency version information -->
@@ -101,14 +106,6 @@
         <artifactId>liberty-maven-plugin</artifactId>
         <extensions>true</extensions>
         <version>1.1-SNAPSHOT</version>
-
-        <configuration>
-          <installDirectory>${wlp.install.dir}</installDirectory>
-          <serverName>RtcommHealthcareServer</serverName>
-          <outputDirectory>target</outputDirectory>
-          <!-- Use custom server.xml -->
-          <configFile>${project.basedir}/src/RtcommHealthcareServer/resources/wlp/server.xml</configFile>
-        </configuration>
       </plugin>
 
       <plugin>
@@ -149,9 +146,9 @@
               <goal>replace</goal>
             </goals>
             <configuration>
-              <file>rtcomm.healthcare.wlpcfg/src/RtcommHealthcareServer/resources/wlp/server.xml.template</file>
+              <file>rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/server.xml.template</file>
               <outputFile>
-                rtcomm.healthcare.wlpcfg/src/RtcommHealthcareServer/resources/wlp/server.xml
+                rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/server.xml
               </outputFile>
               <regex>false</regex>
               <replacements>
