@@ -56,6 +56,8 @@
           <serverName>${wlpServerName}</serverName>
           <include>usr</include>
           <userDirectory>${wlpUserDir}</userDirectory>
+          <appsDirectory>apps</appsDirectory>
+          <stripVersion>true</stripVersion>
 
           <outputDirectory>${project.build.directory}/wlp.output</outputDirectory>
           <!-- Use custom server.xml -->
@@ -63,7 +65,7 @@
         </configuration>
 
         <executions>
-          <execution>
+          <!-- <execution>
             <id>deploy web application</id>
             <phase>compile</phase>
             <goals>
@@ -78,7 +80,7 @@
               <appsDirectory>apps</appsDirectory>
               <stripVersion>true</stripVersion>
             </configuration>
-          </execution>
+          </execution> -->
 
           <execution>
             <id>install-feature</id>
@@ -124,6 +126,8 @@
                                 <include>**/apps/*</include>
                                 <include>**/dropins/*</include>
                                 <include>**/workarea/*</include>
+                                <include>**/resources/*</include>
+                                <include>**/*.zip</include>
                             </includes>
                         </fileset>
 

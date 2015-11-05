@@ -11,6 +11,8 @@
 
   <artifactId>rtcomm.healthcare.app</artifactId>
   <name>RtcommHealthcare Web Application</name>
+  <version>1.0-SNAPSHOT</version>
+
   <packaging>war</packaging>
 
   <dependencies>
@@ -99,13 +101,13 @@
             </includes>
             <followSymlinks>false</followSymlinks>
           </fileset>
-          <!-- <fileset>
+          <fileset>
             <directory>./</directory>
             <includes>
               <include>**/node/**</include>
             </includes>
             <followSymlinks>false</followSymlinks>
-          </fileset> -->
+          </fileset>
         </filesets>
       </configuration>
     </plugin>
