@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>net.wasdev.wlp.sample</groupId>
+    <artifactId>sample.rtcomm.healthcare</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>rtcomm.healthcare.app</artifactId>
+  <name>RtcommHealthcare Web Application</name>
+  <version>1.0-SNAPSHOT</version>
+
+  <packaging>war</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-servlet_3.0_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ibm.tools.target</groupId>
+      <artifactId>was-liberty</artifactId>
+      <version>LATEST</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <pluginRepositories>
+    <!-- Configure Sonatype OSS Maven snapshots repository-->
+    <pluginRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <plugins>
+      <plugin>
+       <groupId>com.github.eirslett</groupId>
+       <artifactId>frontend-maven-plugin</artifactId>
+       <version>0.0.26</version>
+       <configuration>
+         <workingDirectory>src/main/webapp</workingDirectory>
+         <installDirectory>./</installDirectory>
+       </configuration>
+       <executions>
+         <execution>
+           <id>install node and npm</id>
+           <goals>
+             <goal>install-node-and-npm</goal>
+           </goals>
+           <configuration>
+             <nodeVersion>v4.1.1</nodeVersion>
+             <npmVersion>3.3.3</npmVersion>
+             <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+             <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
+           </configuration>
+         </execution>
+         <execution>
+           <id>install npm modules</id>
+           <goals>
+             <goal>npm</goal>
+           </goals>
+           <configuration>
+
+             <arguments>install bower</arguments>
+           </configuration>
+         </execution>
+         <execution>
+           <id>bower install</id>
+           <goals>
+             <goal>bower</goal>
+           </goals>
+         </execution>
+       </executions>
+     </plugin>
+
+     <plugin>
+      <artifactId>maven-clean-plugin</artifactId>
+      <version>3.0.0</version>
+      <configuration>
+        <filesets>
+          <fileset>
+            <directory>src/main/webapp</directory>
+            <includes>
+              <include>**/node_modules/**</include>
+              <include>**/bower_components/**</include>
+              <include>**/rtcommConfig.json</include>
+            </includes>
+            <followSymlinks>false</followSymlinks>
+          </fileset>
+          <fileset>
+            <directory>./</directory>
+            <includes>
+              <include>**/node/**</include>
+            </includes>
+            <followSymlinks>false</followSymlinks>
+          </fileset>
+        </filesets>
+      </configuration>
+    </plugin>
+          <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <warSourceExcludes>**/node_modules/**</warSourceExcludes>
+
+    </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

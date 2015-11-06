@@ -26,5 +26,9 @@
   ],
   "dependencies": {
     "angular-rtcomm": "~1.0.0"
+  },
+
+  "resolutions": {
+  "angular": "~1.4.7"
   }
 }

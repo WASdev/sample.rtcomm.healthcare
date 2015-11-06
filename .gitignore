@@ -3,3 +3,11 @@
 .settings
 /bin/
 WebContent/bower_components/
+/build
+/.project
+/.gradle
+/.settings
+/.plxarc
+/target
+*.swp
+wlp-install.properties
