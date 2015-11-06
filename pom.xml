@@ -9,6 +9,14 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
 
+  <licenses>
+      <license>
+          <name>The Apache Software License, Version 2.0</name>
+          <url>https://raw.github.com/WASdev/sample.microservices.12factorapp/master/LICENSE</url>
+          <distribution>repo</distribution>
+      </license>
+  </licenses>
+  
   <properties>
     <!-- Specify Liberty profile server installation directory -->
     <wlp.install.dir></wlp.install.dir>
