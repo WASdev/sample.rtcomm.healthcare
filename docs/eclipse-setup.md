@@ -9,7 +9,7 @@
   +  *Window -> Show View -> Other...*
   + Type *git* in the filter box and select **Git Repositories** and click 'OK'
   + Click on *Clone a Git Repository*
-2. Copy and paste the Github repository URI (https://github.com/jfmartinez/sample.rtcomm.healthcare.git) to the Location URI text field on Eclipse
+2. Copy and paste the Github repository URI (https://github.com/WASdev/sample.rtcomm.healthcare.git) to the Location URI text field on Eclipse
 3. Click 'Next', select only the 'master' branch, uncheck the other branches that may have been selected and Click 'Next'
 4. Click on 'Finish'
 

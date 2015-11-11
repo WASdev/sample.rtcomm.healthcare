@@ -3,7 +3,7 @@
 Clone the repository into a directory (i.e. $HOME/sample.rtcomm.healthcare)
 
 ```
-$ git clone https://github.com/jfmartinez/sample.rtcomm.healthcare.git
+$ git clone https://github.com/WASdev/sample.rtcomm.healthcare.git
 ```
 
 ### Building the Sample Using [Apache Maven](https://maven.apache.org/)
