@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.wasdev.wlp.sample</groupId>
@@ -10,23 +10,26 @@
   <version>1.0-SNAPSHOT</version>
 
   <licenses>
-      <license>
-          <name>The Apache Software License, Version 2.0</name>
-          <url>https://raw.github.com/WASdev/sample.rtcomm.healthcare/master/LICENSE</url>
-          <distribution>repo</distribution>
-      </license>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>https://raw.github.com/WASdev/sample.rtcomm.healthcare/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
   </licenses>
+  <scm>
+    <connection>scm:git:git@github.com:WASdev/sample.rtcomm.healthcare.git</connection>
+    <developerConnection>scm:git@github.com:WASdev/sample.rtcomm.healthcare.git</developerConnection>
+    <url>git@github.com:WASdev/sample.rtcomm.healthcare.git</url>
+  </scm>
 
   <properties>
     <!-- Specify Liberty profile server installation directory -->
-    <wlp.install.dir></wlp.install.dir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
-
-    <wlpUserDir>${basedir}</wlpUserDir>
-    <wlpServerName>RtcommHealthcareServer</wlpServerName>
-    <wlpServerDir>${wlpUserDir}/servers/${wlpServerName}</wlpServerDir>
+    <mqtt.server.hostname>messagesight.demos.ibm.com</mqtt.server.hostname>
+    <rtcomm.topic.path>HDesk-${maven.build.timestamp}</rtcomm.topic.path>
+    <wlp.install.dir></wlp.install.dir>
 
   </properties>
 
@@ -37,16 +40,6 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.9</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-httpclient</groupId>
-        <artifactId>commons-httpclient</artifactId>
-        <version>3.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.geronimo.specs</groupId>
-        <artifactId>geronimo-servlet_3.0_spec</artifactId>
-        <version>1.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -74,51 +67,107 @@
     </pluginRepository>
   </pluginRepositories>
 
-
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>net.wasdev.wlp.maven.plugins</groupId>
+          <artifactId>liberty-maven-plugin</artifactId>
+          <version>1.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.google.code.maven-replacer-plugin</groupId>
+          <artifactId>replacer</artifactId>
+          <version>1.5.3</version>
+        </plugin>
         <!-- Workaround for m2e Eclipse Maven Plugin -->
         <plugin>
-         <groupId>org.eclipse.m2e</groupId>
-         <artifactId>lifecycle-mapping</artifactId>
-         <version>1.0.0</version>
-         <configuration>
-           <lifecycleMappingMetadata>
-             <pluginExecutions>
-               <pluginExecution>
-                 <pluginExecutionFilter>
-                   <groupId>com.google.code.maven-replacer-plugin</groupId>
-                   <artifactId>replacer</artifactId>
-                   <versionRange>[1.5.3,)</versionRange>
-                   <goals>
-                     <goal>replace</goal>
-                   </goals>
-                 </pluginExecutionFilter>
-                 <action>
-                   <ignore/>
-                 </action>
-               </pluginExecution>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <versionRange>[1.5.3,)</versionRange>
+                    <goals>
+                      <goal>replace</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <versionRange>[1.4.0, )</versionRange>
+                    <goals>
+                      <goal>exec</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                    <artifactId>liberty-maven-plugin</artifactId>
+                    <versionRange>[1.1,)</versionRange>
+                    <goals>
+                      <goal>install-feature</goal>
+                      <goal>create-server</goal>
+                      <goal>install-apps</goal>
+                    </goals>
 
-               <pluginExecution>
-                 <pluginExecutionFilter>
-                   <groupId>net.wasdev.wlp.maven.plugins</groupId>
-                   <artifactId>liberty-maven-plugin</artifactId>
-                   <versionRange>[1.2-SNAPSHOT,)</versionRange>
-                   <goals>
-                     <goal>install-feature</goal>
-                     <goal>create-server</goal>
-                     <goal>install-apps</goal>
-                   </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
 
-                 </pluginExecutionFilter>
-                 <action>
-                   <ignore/>
-                 </action>
-               </pluginExecution>
-             </pluginExecutions>
-           </lifecycleMappingMetadata>
-         </configuration>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>properties-maven-plugin</artifactId>
+                    <versionRange>[1.0-alpha-2,)</versionRange>
+                    <goals>
+                      <goal>read-project-properties</goal>
+                    </goals>
+
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+
+                  </action>
+                </pluginExecution>
+
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <versionRange>[0.0.26,)</versionRange>
+                    <goals>
+                      <goal>install-node-and-npm</goal>
+                      <goal>npm</goal>
+                      <goal>bower</goal>
+                    </goals>
+
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
         </plugin>
 
       </plugins>
@@ -147,65 +196,8 @@
           </archive>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.google.code.maven-replacer-plugin</groupId>
-        <artifactId>replacer</artifactId>
-        <version>1.5.3</version>
-        <executions>
-          <execution>
-            <id>replace RTCOMMTOPICPATH and MQTTSERVERHOSTNAME on rtcomm.healthcare.app/src/main/webapp</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>replace</goal>
-            </goals>
-            <configuration>
-              <file>rtcomm.healthcare.app/src/main/webapp/rtcommConfig.json.template</file>
-              <outputFile>
-                rtcomm.healthcare.app/src/main/webapp/rtcommConfig.json
-              </outputFile>
-              <regex>false</regex>
-              <replacements>
-                <replacement>
-                  <token>/RTCOMMTOPICPATH/</token>
-                  <value>/HCare-${maven.build.timestamp}/</value>
-                </replacement>
-                <replacement>
-                  <token>MQTTSERVERHOSTNAME</token>
-                  <value>messagesight.demos.ibm.com</value>
-                </replacement>
-              </replacements>
-            </configuration>
-          </execution>
-          <!-- Replace keywords on the rtcomm.healthcare.wlpcfg -->
-          <execution>
-            <id>replace RTCOMMTOPICPATH and MQTTSERVERHOSTNAME on rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>replace</goal>
-            </goals>
-            <configuration>
-              <file>rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/server.xml.template</file>
-              <outputFile>
-                rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/server.xml
-              </outputFile>
-              <regex>false</regex>
-              <replacements>
-                <replacement>
-                  <token>/RTCOMMTOPICPATH/</token>
-                  <value>/HCare-${maven.build.timestamp}/</value>
-                </replacement>
-                <replacement>
-                  <token>MQTTSERVERHOSTNAME</token>
-                  <value>messagesight.demos.ibm.com</value>
-                </replacement>
-              </replacements>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
-
 
   <repositories>
     <repository>
@@ -214,6 +206,65 @@
       <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
     </repository>
   </repositories>
+
+  <!-- Build Profiles for the Project -->
+  <profiles>
+    <!-- Demo profile -->
+
+    <profile>
+      <id>demo</id>
+      <activation>
+        <file>
+          <missing>${user.dir}/rtcomm.properties</missing>
+        </file>
+      </activation>
+    </profile>
+    <!-- Development Profile -->
+    <!-- Create a file: 'rtcomm.properties' in the root directory of the project that will contain the development properties:
+
+		WLP_INSTALL_DIR=/path/to/liberty
+		RTCOMMTOPICPATH=XXXXXXX
+		MQTTSERVERHOSTNAME=XXXXXX
+	-->
+    <profile>
+      <id>dev</id>
+      <activation>
+        <file>
+          <exists>${user.dir}/rtcomm.properties</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.0-alpha-2</version>
+            <executions>
+              <execution>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+                <configuration>
+                  <files>
+                    <file>${user.dir}/rtcomm.properties</file>
+                  </files>
+                </configuration>
+              </execution>
+            </executions>
+
+          </plugin>
+        </plugins>
+      </build>
+      <properties>
+        <rtcomm.topic.path>${RTCOMMTOPICPATH}</rtcomm.topic.path>
+        <wlp.install.dir>${WLP_INSTALL_DIR}</wlp.install.dir>
+        <mqtt.server.hostname>${MQTTSERVERHOSTNAME}</mqtt.server.hostname>
+      </properties>
+    </profile>
+
+  </profiles>
+
   <modules>
     <module>rtcomm.healthcare.app</module>
     <module>rtcomm.healthcare.wlpcfg</module>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -9,17 +9,19 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
+  <groupId>sample.rtcomm.healthcare</groupId>
   <artifactId>rtcomm.healthcare.app</artifactId>
   <name>RtcommHealthcare Web Application</name>
   <version>1.0-SNAPSHOT</version>
 
   <packaging>war</packaging>
+  <url>https://wasdev.github.io</url>
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-servlet_3.0_spec</artifactId>
-      <scope>provided</scope>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-resources-plugin</artifactId>
+      <version>2.4.3</version>
     </dependency>
     <dependency>
       <groupId>com.ibm.tools.target</groupId>
@@ -29,96 +31,189 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <profiles>
 
-  <pluginRepositories>
-    <!-- Configure Sonatype OSS Maven snapshots repository-->
-    <pluginRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <name>Sonatype Nexus Snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
+    <!-- Build profile when bower_components are already installed -->
+    <profile>
+      <id>frontend.dev</id>
+      <activation>
+
+        <file>
+          <exists>src/main/webapp/bower_components/</exists>
+        </file>
+
+      </activation>
+    </profile>
+    <!-- Use local installation of node/npm/bower -->
+    <profile>
+      <id>bower.install</id>
+
+      <activation>
+        <file>
+          <exists>../rtcomm.properties</exists>
+          <missing>src/main/webapp/bower_components</missing>
+        </file>
+      </activation>
+
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.4.0</version>
+            <executions>
+              <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <executable>bower</executable>
+              <arguments>
+                <argument>install</argument>
+              </arguments>
+              <workingDirectory>${basedir}/src/main/webapp</workingDirectory>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Download Node/NPM/Bower locally -->
+    <profile>
+      <id>demo</id>
+      <activation>
+        <file>
+          <missing>../rtcomm.properties</missing>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>0.0.26</version>
+            <configuration>
+              <workingDirectory>${basedir}/src/main/webapp</workingDirectory>
+              <installDirectory>./</installDirectory>
+            </configuration>
+            <executions>
+              <execution>
+                <id>install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <configuration>
+                  <nodeVersion>v4.1.1</nodeVersion>
+                  <npmVersion>3.3.3</npmVersion>
+                  <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+                  <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
+                </configuration>
+              </execution>
+              <execution>
+                <id>install npm modules</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <configuration>
+
+                  <arguments>install bower</arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>bower install</id>
+                <goals>
+                  <goal>bower</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
 
   <build>
+
     <plugins>
       <plugin>
-       <groupId>com.github.eirslett</groupId>
-       <artifactId>frontend-maven-plugin</artifactId>
-       <version>0.0.26</version>
-       <configuration>
-         <workingDirectory>src/main/webapp</workingDirectory>
-         <installDirectory>./</installDirectory>
-       </configuration>
-       <executions>
-         <execution>
-           <id>install node and npm</id>
-           <goals>
-             <goal>install-node-and-npm</goal>
-           </goals>
-           <configuration>
-             <nodeVersion>v4.1.1</nodeVersion>
-             <npmVersion>3.3.3</npmVersion>
-             <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
-             <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
-           </configuration>
-         </execution>
-         <execution>
-           <id>install npm modules</id>
-           <goals>
-             <goal>npm</goal>
-           </goals>
-           <configuration>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>**/node_modules/**</include>
+                <include>**/rtcommConfig.json</include>
+                <include>**/bower_components/**</include>
 
-             <arguments>install bower</arguments>
-           </configuration>
-         </execution>
-         <execution>
-           <id>bower install</id>
-           <goals>
-             <goal>bower</goal>
-           </goals>
-         </execution>
-       </executions>
-     </plugin>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>./</directory>
+              <includes>
+                <include>**/node/**</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
 
-     <plugin>
-      <artifactId>maven-clean-plugin</artifactId>
-      <version>3.0.0</version>
-      <configuration>
-        <filesets>
-          <fileset>
-            <directory>src/main/webapp</directory>
-            <includes>
-              <include>**/node_modules/**</include>
-              <include>**/bower_components/**</include>
-              <include>**/rtcommConfig.json</include>
-            </includes>
-            <followSymlinks>false</followSymlinks>
-          </fileset>
-          <fileset>
-            <directory>./</directory>
-            <includes>
-              <include>**/node/**</include>
-            </includes>
-            <followSymlinks>false</followSymlinks>
-          </fileset>
-        </filesets>
-      </configuration>
-    </plugin>
-          <plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
         <configuration>
           <warSourceExcludes>**/node_modules/**</warSourceExcludes>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
 
-    </configuration>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <executions>
+          <execution>
+            <id>replace RTCOMMTOPICPATH and MQTTSERVERHOSTNAME on agentConfig.json</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <basedir>${basedir}/src/main/webapp/</basedir>
+              <file>rtcommConfig.template.json</file>
+              <outputFile>rtcommConfig.json</outputFile>
+              <regex>false</regex>
+              <replacements>
+                <replacement>
+                  <token>/RTCOMMTOPICPATH/</token>
+                  <value>/${rtcomm.topic.path}/</value>
+                </replacement>
+                <replacement>
+                  <token>MQTTSERVERHOSTNAME</token>
+                  <value>${mqtt.server.hostname}</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>
