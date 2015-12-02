@@ -49,6 +49,7 @@
 5. Follow the prompts:
   + If you decided to download Liberty, choose "WAS Liberty V8.5.5.7 Web Profile " please install the following add-ons when prompted
     + `Real-Time Communications [rtcomm-1.0]` "rtcomm" in the text filter
+    + `JsonP (javax.json) Sample [jsonp-1.0]` - Type "jsonp" in the text filter
 
 
 ###### Add the User Directory from the Maven project and create a Server
