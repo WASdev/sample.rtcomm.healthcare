@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>net.wasdev.wlp.sample</groupId>
+    <artifactId>sample.rtcomm.healthcare</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>rtcomm.healthcare.wlpcfg</artifactId>
+  <name>RtcommHealthcare Server Assembly</name>
+  <packaging>liberty-assembly</packaging>
+
+  <properties>
+
+    <wlpUserDir>${basedir}</wlpUserDir>
+    <wlpServerName>RtcommHealthcareServer</wlpServerName>
+    <wlpServerDir>${wlpUserDir}/servers/${wlpServerName}</wlpServerDir>
+
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>net.wasdev.wlp.sample</groupId>
+      <artifactId>rtcomm.healthcare.app</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>war</type>
+    </dependency>
+  </dependencies>
+  <pluginRepositories>
+    <!-- Configure Sonatype OSS Maven snapshots repository -->
+    <pluginRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.wasdev.wlp.maven.plugins</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <version>1.1-SNAPSHOT</version>
+
+        <configuration>
+          <installDirectory>${wlp.install.dir}</installDirectory>
+          <serverName>${wlpServerName}</serverName>
+          <include>usr</include>
+          <userDirectory>${wlpUserDir}</userDirectory>
+          <appsDirectory>apps</appsDirectory>
+          <stripVersion>true</stripVersion>
+
+          <outputDirectory>${project.build.directory}/wlp.output</outputDirectory>
+          <!-- Use custom server.xml -->
+          <configFile>${project.basedir}/${wlpServerDir}/server.xml</configFile>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>install-feature</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>install-feature</goal>
+            </goals>
+            <configuration>
+              <features>
+                <acceptLicense>true</acceptLicense>
+                <feature>jsonp-1.0</feature>
+                <feature>rtcomm-1.0</feature>
+                <feature>ssl-1.0</feature>
+                <feature>appSecurity-2.0</feature>
+                <feature>localConnector-1.0</feature>
+              </features>
+            </configuration>
+          </execution>
+        </executions>
+
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>servers/${wlpServerName}/</directory>
+              <includes>
+                <include>**/server.xml</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>target</directory>
+            </fileset>
+            <fileset>
+              <directory>servers</directory>
+              <followSymlinks>false</followSymlinks>
+              <includes>
+                <include>**/logs/*</include>
+                <include>**/apps/*</include>
+                <include>**/dropins/*</include>
+                <include>**/workarea/*</include>
+                <include>**/resources/*</include>
+                <include>**/*.zip</include>
+              </includes>
+            </fileset>
+
+          </filesets>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

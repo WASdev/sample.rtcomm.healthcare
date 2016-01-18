@@ -1,0 +1,8 @@
+{
+  "server" : "MQTTSERVERHOSTNAME",
+	"port" : 1883,
+	"rtcommTopicPath" : "/RTCOMMTOPICPATH/",
+	"broadcastAudio" : true,
+	"broadcastVideo" : true,
+	"identityServlet" : "../HCareIdentity"
+}
