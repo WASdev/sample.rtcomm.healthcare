@@ -9,7 +9,7 @@
   +  *Window -> Show View -> Other...*
   + Type *git* in the filter box and select **Git Repositories** and click 'OK'
   + Click on *Clone a Git Repository*
-2. Copy and paste the Github repository URI (https://github.com/jfmartinez/sample.rtcomm.healthcare.git) to the Location URI text field on Eclipse
+2. Copy and paste the Github repository URI (https://github.com/WASdev/sample.rtcomm.healthcare.git) to the Location URI text field on Eclipse
 3. Click 'Next', select only the 'master' branch, uncheck the other branches that may have been selected and Click 'Next'
 4. Click on 'Finish'
 
@@ -47,9 +47,10 @@
   + Select an existing installation
   + Select *Install from an archive or a repository* to download a new Liberty archive
 5. Follow the prompts:
-  + If you decided to download Liberty, choose "WAS Liberty V8.5.5.7 Runtime " please install the following add-ons when prompted
+  + If you decided to download Liberty, choose "WAS Liberty V8.5.5.7 Web Profile " please install the following add-ons when prompted
     + `Real-Time Communications [rtcomm-1.0]` "rtcomm" in the text filter
     + `JsonP (javax.json) Sample [jsonp-1.0]` - Type "jsonp" in the text filter
+
 
 ###### Add the User Directory from the Maven project and create a Server
 
@@ -60,14 +61,28 @@
   2. Select the *rtcomm.healthcare.wlpcfg* project
   3. Select *Finish, Ok, Finish*
 4. Right-click on the *rtcomm.healthcare.wlpcfg* user directory listed under the target Runtime Environment in the Runtime Explorer View and select *New -> Server...*.
-5. A dialog should appear and select the **RtcommHealthcareServer** Liberty Profile server from the dropdown menu
+5. A dialog should appear and select the **RtcommHealthcareServer** Liberty Profile server from the dropdown menu. The default name for this server can vary, you might also opt to rename it from the Right-click menu in the Servers view to make it easier to identify.
 6. Click Finish
 
-###### Running the Sample Application
+###### Running Liberty and the sample application from WDT
 
-1. Open the 'Servers' view
-  + *Window -> Show View -> Other...*
-  + Type *servers* in the filterbox and select **Servers**
-2. Right-click on the server at localhost [RtcommHealthcareServer]
-  + Click 'Start'
-3. Open the sample at http://localhost:9080/sample.rtcomm.healthcare/
+1. Select the 'rtcomm.healthcare.app' project
+2. Right-click -> *Run As ... -> Run On Server*
+3. Select the appropiate server (as created above) and select *Finish*
+3. Open the sample at http://localhost:9080/ using either Firefox or Chrome
+
+
+:star: *Note:* Some versions of WDT incorrectly map the cdi-1.2 dependency to the CDI 1.0 Facet, which prevents the *Run As ...* operation in step 2 from succeeding. If this happens, Right-click on the `rtcomm.healthcare.app` project, and select *Properties*, then select *Project Facets* in the left-hand pane. Change the the "Context and dependency injection (CDI)" facet to use version 1.2, at which point, step 2 (above) should work.
+
+###### Deploying the application to Bluemix
+
+
+Requires: [IBM Eclipse Tools for Bluemix]
+
+You'll need to create a Bluemix server:
+1. 'Click' on the servers tab in Eclipse
+2. Select _new > server_
+3. Select the server type as __IBM Bluemix__, give the server a name
+4. Click _Next_ and enter your credentials
+5. Choose your organization/space
+6. Drag and drop the _RtcommHealthcareServer.zip_ file (in rtcomm.healthcare.wlpcfg/servers/RtcommHealthcareServer/) into the Bluemix server. Fill the Bluemix server information.

@@ -52,7 +52,7 @@
 
     <applicationMonitor updateTrigger="mbean"/>
 
-<webApplication id="sample.rtcomm.healthcare" location="rtcomm.healthcare.app.war" name="sample.rtcomm.healthcare" contextRoot="/">
+    <webApplication id="rtcomm.healthcare.app" location="rtcomm.healthcare.app.war" name="rtcomm.healthcare.app" contextRoot="/">
     	<application-bnd>
     		<security-role name="agent">
     			<group name="Agents"></group>
